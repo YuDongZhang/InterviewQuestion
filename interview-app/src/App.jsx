@@ -9,14 +9,20 @@ function App() {
 
   // Save to file system via API
   const saveQuestions = async (newData) => {
+    console.log('Saving questions...', newData);
     try {
-      await fetch('/api/save-questions', {
+      const response = await fetch('/api/save-questions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify(newData),
       });
+      const result = await response.json();
+      console.log('Save result:', result);
+      if (!response.ok) {
+        throw new Error(result.error || 'Failed to save');
+      }
     } catch (error) {
       console.error('Failed to save questions:', error);
       alert('保存失败，请检查控制台');

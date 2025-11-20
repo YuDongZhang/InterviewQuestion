@@ -1,26 +1,6 @@
 {
   "android": [
     {
-      "question": "activity 生命周期",
-      "answer": "onCreate() -\\> onStart() -\\> onResume() -\\> onPause() -\\> onStop() -\\>",
-      "detail": ""
-    },
-    {
-      "question": "onDetroy() c s r p s d",
-      "answer": "",
-      "detail": ""
-    },
-    {
-      "question": "android:configChanges",
-      "answer": "",
-      "detail": ""
-    },
-    {
-      "question": "fragment 生命周期",
-      "answer": "onAttach() onCreate() onCreateView() onActivityCreated() onStart()\nonResume() onPause() onStop() onDestroyView() onDestroy() onDetach()",
-      "detail": ""
-    },
-    {
       "question": "Service生命周期",
       "answer": "startService  startService() --> onCreate()--> onStartConmon()--> onDestroy()。 csd",
       "detail": ""
