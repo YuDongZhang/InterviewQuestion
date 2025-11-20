@@ -1,0 +1,5913 @@
+{
+  "android": [
+    {
+      "question": "activity 生命周期",
+      "answer": "onCreate() -\\> onStart() -\\> onResume() -\\> onPause() -\\> onStop() -\\>",
+      "detail": ""
+    },
+    {
+      "question": "onDetroy() c s r p s d",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:configChanges",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "fragment 生命周期",
+      "answer": "onAttach() onCreate() onCreateView() onActivityCreated() onStart()\nonResume() onPause() onStop() onDestroyView() onDestroy() onDetach()",
+      "detail": ""
+    },
+    {
+      "question": "Service生命周期",
+      "answer": "startService  startService() --> onCreate()--> onStartConmon()--> onDestroy()。 csd",
+      "detail": ""
+    },
+    {
+      "question": "记忆 ，",
+      "answer": "bindService\nbindService--\\>onCreate()--\\>onBind()--\\>unBind()--\\>onDestroy(）cbbd",
+      "detail": ""
+    },
+    {
+      "question": "Startservice bindservice 区别",
+      "answer": "Startservice\n实现方法：Intent intent = new Intent(this, MyService.class);",
+      "detail": ""
+    },
+    {
+      "question": "startService(intent); 自定义一个myservie 继承 Service ，",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "在onStartCommand 方法中执行后台任务。",
+      "answer": "service会一直无限期运行下去，只有外部调用了stopService()或stopSelf()方法时才停止。",
+      "detail": ""
+    },
+    {
+      "question": ".bindservice",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "步骤：",
+      "answer": "1,客户端发起绑定请求 bindService(intent, serviceConnection,",
+      "detail": ""
+    },
+    {
+      "question": "Context.BIND_AUTO_CREATE);",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "2,Service 提供 IBinder 对象",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "public class MyService extends Service {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "private final IBinder binder = new MyBinder();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "public class MyBinder extends Binder {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "public MyService getService() {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "return MyService.this; // 返回当前Service实例",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "@Nullable",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "@Override",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "public IBinder onBind(Intent intent) {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "return binder; // 返回IBinder对象",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "3,客户端通过 ServiceConnection 拿到 Binder",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "private MyService myService;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "private boolean bound = false;",
+      "answer": "private ServiceConnection connection = new ServiceConnection() {",
+      "detail": ""
+    },
+    {
+      "question": "@Override",
+      "answer": "public void onServiceConnected(ComponentName name, IBinder service) {\nMyService.MyBinder binder = (MyService.MyBinder) service;",
+      "detail": ""
+    },
+    {
+      "question": "myService = binder.getService(); // 拿到Service实例",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "bound = true;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "@Override",
+      "answer": "public void onServiceDisconnected(ComponentName name) {",
+      "detail": ""
+    },
+    {
+      "question": "bound = false;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "};",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "4,客户端调用 Service 方法",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "现在就能直接通信了：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "if (bound) {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "myService.playMusic(); // 直接调用Service里的方法",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "1,bindservice 客服模式，服务一个，客户端可多个。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "client可以通过IBinder接口获取Service实例，从而实现在client端直接调用Service中的方法以实现灵活交互",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "bindService启动服务的生命周期与其绑定的client息息相关。当client销毁时，client会自动与Service解除绑定。当然，client也可以明确调用Context的unbindService()方法与Service解除绑定。当没有任何client与Service绑定时，Service会自行销毁。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Broadcast注册方式与区别",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "静态注册（常驻） Androidmanifest.xml  开机启动 ， 不死",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "动态注册 registerReceiver",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "广播的类型（非常重要）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "两个 activity 传递大的数据",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Activity之间通过intent传递大量数据，导致新Activity无法启动。比如你用",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "intent 加 bundle ， 会出现传 输数据过大异常 ，",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "方案一：用全局单例 / Application 保存临时数据",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "这种方式最简单、最常见。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "方案二：使用文件或数据库缓存",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "把大数据保存到本地文件 / SQLite / Room中，只在 Intent 中传一个路径或",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "ID。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "案三：使用 ViewModel（在同一个 Task 内）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "如果两个 Activity 是在同一个进程、同一个 Task 内，可以借助",
+      "answer": "ViewModelStoreOwner （Jetpack）。通过共享 ViewModel 存储数据，",
+      "detail": ""
+    },
+    {
+      "question": "方案四：使用 ParcelableFileDescriptor（特殊场景）",
+      "answer": "如果确实要传输大文件，可以用文件句柄（ParcelFileDescriptor）传递，而不是字节数组：",
+      "detail": ""
+    },
+    {
+      "question": "Activity之间传递数据一般通过以下几种方式实现：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "通过intent传递数据",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "通过Application",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "使用单例",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "静态成员变量。（可以考虑 WeakReferences）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "持久化（sqlite、share preference、file等）",
+      "answer": "https://blog.csdn.net/rflyee/article/details/47431633",
+      "detail": ""
+    },
+    {
+      "question": "四种LaunchMode及其使用场景",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "standard 模式 ：都会重新创建Activity的新的实例",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "，不需要考虑这个实例是否已经存在。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "singleTop 模式 ：在栈顶就不走oncreate ，调用onNewIntent",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "，不去创建这个实例",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "singleTask 模式 ：在一个task中只有一个实例",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "，系统就会把该Activity移到栈顶，并把它上面 的 activity出栈。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "singleInstance 模式 ： singleInstance",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Activity在整个系统里只有一个实例，启动一",
+      "answer": "singleInstanceActivity时，系统会创建一个新的任务栈，并且这个任务栈只有他一个Activity。",
+      "detail": ""
+    },
+    {
+      "question": "Activity 保存数据",
+      "answer": "onSaveInstanceState(Bundle)会在activity转入后台状态之前被调用，也就是onStop()方法\n之前， onPause方法之后被调用 onRestoreInstanceState从中提取保存好的数据",
+      "detail": ""
+    },
+    {
+      "question": "使用 ViewModel 保存状态（推荐用于配置变更）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "作用：ViewModel 的生命周期独立于",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Activity，不受配置变更影响（旋转屏幕时不会重建），适合保存复杂数据或与界面相关的状态。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "适用场景：列表数据、网络请求结果、用户输入状态等。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "简述AIDL机制",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "1,定义 AIDL 接口文件",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "在 app/src/main/aidl/ 目录下创建一个 .aidl 文件：",
+      "answer": "// IMyAidlInterface.aidl",
+      "detail": ""
+    },
+    {
+      "question": "package com.example.aidl;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "interface IMyAidlInterface {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "int add(int a, int b);",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "String getMessage();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "⚠️ 注意：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "AIDL 文件中的包名必须与实现类保持一致。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔹 2. 编译生成 Java 接口文件",
+      "answer": "编译后，系统会自动在 build/generated/aidl_source_output_dir/ 下生成一个",
+      "detail": ""
+    },
+    {
+      "question": "Java 接口：",
+      "answer": "public interface IMyAidlInterface extends android.os.IInterface {\npublic int add(int a, int b) throws android.os.RemoteException;\npublic String getMessage() throws android.os.RemoteException;\nabstract class Stub extends android.os.Binder implements IMyAidlInterface {",
+      "detail": ""
+    },
+    {
+      "question": "...",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔹 3. 在 Service 中实现接口",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "public class MyAidlService extends Service {",
+      "answer": "private final IMyAidlInterface.Stub mBinder = new IMyAidlInterface.Stub() {",
+      "detail": ""
+    },
+    {
+      "question": "@Override",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "public int add(int a, int b) {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "return a + b;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "@Override",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "public String getMessage() {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "return \"Hello from AIDL Service!\";",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "};",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "@Override",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "public IBinder onBind(Intent intent) {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "return mBinder;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "在 AndroidManifest.xml 中声明：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "\\<service",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:name=\".MyAidlService\"",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:process=\":remote\"  <!-- 运行在独立进程 -->",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:exported=\"true\">",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "<intent-filter>",
+      "answer": "<action android:name=\"com.example.aidl.MyAidlService\" />",
+      "detail": ""
+    },
+    {
+      "question": "</intent-filter>",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "`</service>`{=html}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔹 4. 客户端绑定并调用",
+      "answer": "public class MainActivity extends AppCompatActivity {",
+      "detail": ""
+    },
+    {
+      "question": "private IMyAidlInterface aidlService;",
+      "answer": "private ServiceConnection connection = new ServiceConnection() {",
+      "detail": ""
+    },
+    {
+      "question": "@Override",
+      "answer": "public void onServiceConnected(ComponentName name, IBinder service) {\naidlService = IMyAidlInterface.Stub.asInterface(service);",
+      "detail": ""
+    },
+    {
+      "question": "try {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "int result = aidlService.add(3, 5);",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Log.d(\"AIDL\", \"Result: \" + result);",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "} catch (RemoteException e) {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "e.printStackTrace();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "@Override",
+      "answer": "public void onServiceDisconnected(ComponentName name) {",
+      "detail": ""
+    },
+    {
+      "question": "aidlService = null;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "};",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "@Override",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "protected void onStart() {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "super.onStart();",
+      "answer": "Intent intent = new Intent(\"com.example.aidl.MyAidlService\");",
+      "detail": ""
+    },
+    {
+      "question": "intent.setPackage(\"com.example.aidl\"); // 明确包名",
+      "answer": "bindService(intent, connection, BIND_AUTO_CREATE);",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "七、使用 AIDL 的注意事项",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "1,线程问题：AIDL 方法默认运行在 Binder 线程池中，不能直接更新 UI。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "2,数据大小：跨进程通信时数据不能太大，否则会抛",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "TransactionTooLargeException。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "2,安全性：如果 Service",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:exported=\"true\"，要防止恶意应用调用（可以验证包名或签名）。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "接口版本兼容：AIDL 接口变更需注意版本兼容问题。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "非常好的问题 👍 你问到了 AIDL 实际开发中最关键的点之一 ------",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "安全性验证。",
+      "answer": "当你把一个 AIDL Service 暴露出去（android:exported=\"true\"），就意味着：",
+      "detail": ""
+    },
+    {
+      "question": "任何安装在同一台设备上的其他 App 都可能调用它。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "如果不做安全校验，恶意 App 可以：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "调用你的接口，",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "传入非法参数，",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "占用你的后台服务资源，",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "甚至篡改或窃取数据。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "下面我给你讲讲 AIDL 安全防护的 3 种常见方式（按安全级别从低到高）👇",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 方式一：通过包名验证调用来源",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "这是最常见、简单的一种方法。 在 onBind() 或 onTransact()",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "里，检查是谁在绑定你的 Service。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "@Override",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "public IBinder onBind(Intent intent) {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "String callerPackage = getCallingPackageName();",
+      "answer": "if (!\"com.trusted.client\".equals(callerPackage)) {\nLog.w(\"AIDL\", \"Unauthorized access from: \" + callerPackage);",
+      "detail": ""
+    },
+    {
+      "question": "return null; // 拒绝绑定",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "return mBinder;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "/\\*\\* 获取调用方包名 \\*/",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "private String getCallingPackageName() {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "int callingUid = Binder.getCallingUid();",
+      "answer": "String[] packages = getPackageManager().getPackagesForUid(callingUid);\nreturn (packages != null && packages.length > 0) ? packages[0] : null;",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧠 原理：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Binder.getCallingUid() 获取调用方的 UID；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "再通过 PackageManager.getPackagesForUid() 查出对应包名；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "和你信任的包名比对。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 方式二：通过签名验证（更安全）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "恶意应用可能伪造包名（只要同名安装）， 所以更安全的方式是校验 数字签名。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "private boolean checkSignature() {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "int callingUid = Binder.getCallingUid();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "PackageManager pm = getPackageManager();",
+      "answer": "String[] packages = pm.getPackagesForUid(callingUid);",
+      "detail": ""
+    },
+    {
+      "question": "if (packages != null) {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "for (String pkg : packages) {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "try {",
+      "answer": "PackageInfo info = pm.getPackageInfo(pkg, PackageManager.GET_SIGNING_CERTIFICATES);\nSignature[] signatures = info.signingInfo.getApkContentsSigners();\n// 获取本应用签名\nPackageInfo myInfo = pm.getPackageInfo(getPackageName(), PackageManager.GET_SIGNING_CERTIFICATES);\nSignature[] mySignatures = myInfo.signingInfo.getApkContentsSigners();\n// 比较签名是否一致",
+      "detail": ""
+    },
+    {
+      "question": "if (signatures[0].equals(mySignatures[0])) {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "return true; // 签名相同，允许访问",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "} catch (Exception e) {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "e.printStackTrace();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "return false; // 签名不匹配",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "@Override",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "public IBinder onBind(Intent intent) {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "if (!checkSignature()) {",
+      "answer": "Log.w(\"AIDL\", \"Unauthorized signature detected!\");",
+      "detail": ""
+    },
+    {
+      "question": "return null;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "return mBinder;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔒 好处：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "即使包名被伪造，只要签名不一样，仍然无法访问；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "这种方式最常用于自家 App 模块间通信（例如主 App 调插件 App）。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 方式三：使用权限（Permission）控制",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "在 AndroidManifest.xml 中声明一个自定义权限：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "`<permission",
+      "answer": "android:name=\"com.example.myapp.PERMISSION_ACCESS_AIDL\"",
+      "detail": ""
+    },
+    {
+      "question": "android:protectionLevel=\"signature\" />`{=html}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "在你的 Service 中使用这个权限：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "`<service",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:name=\".MyAidlService\"",
+      "answer": "android:permission=\"com.example.myapp.PERMISSION_ACCESS_AIDL\"",
+      "detail": ""
+    },
+    {
+      "question": "android:exported=\"true\">`{=html}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "<intent-filter>",
+      "answer": "<action android:name=\"com.example.aidl.MyAidlService\" />",
+      "detail": ""
+    },
+    {
+      "question": "`</intent-filter>`{=html}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "`</service>`{=html}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 原理：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "只有签名相同、且显式声明使用了此权限的 App 才能访问；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "这种方式系统级别控制，最安全也最方便；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "无需写代码验证，Android 框架层会自动拦截非法调用。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "View的绘制流程",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "这个问题很关键，Android View 绘制核心流程是测量（Measure）→",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "布局（Layout）→ 绘制（Draw）三步，从顶层 View 递归执行到所有子 View。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "\\### 1. 测量（Measure）：确定 View 大小 - 父 View",
+      "answer": "传递测量规格（MeasureSpec），包含模式（EXACTLY/AT_MOST/UNSPECIFIED）和建议尺寸。 -",
+      "detail": ""
+    },
+    {
+      "question": "View 结合自身",
+      "answer": "LayoutParams，通过onMeasure()计算出最终宽高（setMeasuredDimension()",
+      "detail": ""
+    },
+    {
+      "question": "确定）。 - 容器类 View（如 LinearLayout）会遍历子 View 调用",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "measure()，完成所有子 View 测量。",
+      "answer": "--- \\### 2. 布局（Layout）：确定 View 位置 - 父 View 拿到子 View",
+      "detail": ""
+    },
+    {
+      "question": "测量后的尺寸，通过onLayout()确定子 View",
+      "answer": "在自身坐标系中的位置（left/top/right/bottom）。 - 子 View 接收父 View",
+      "detail": ""
+    },
+    {
+      "question": "传递的位置参数，调用自身 layout() 方法，进一步递归布局子 View。 -",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "此阶段仅确定位置，不改变已测量的尺寸。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "--- \\### 3. 绘制（Draw）：将 View 渲染到屏幕 -",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "核心通过onDraw(Canvas)实现，Canvas 提供绘制图形、文字、图片的 API。 -",
+      "answer": "绘制顺序：先绘制背景（drawBackground()），再绘制自身内容（onDraw()），最后绘制子\nView（dispatchDraw()）和装饰（如滚动条）。 - 仅当 View 可见、尺寸不为 0",
+      "detail": ""
+    },
+    {
+      "question": "时，才会执行绘制。 --- 要不要我帮你整理一份View",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "绘制流程核心方法调用链路+常见问题排查清单？包含 onMeasure",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "重写示例、MeasureSpec 解析，方便你实际开发中参考。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "简述android事件分发机制",
+      "answer": "dispatchTouchEvent onTouchEvent onInterceptTouchEvent",
+      "detail": ""
+    },
+    {
+      "question": "线程",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "多个线程同时读写同一份共享资源的时候，加锁来让线程排队执行 ，",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "死锁",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "如果线程A持有锁L并且想获得锁M，线程B持有锁M并且想获得锁L，那么这两个线程将",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "永远等待下去，这种情况就是最简单的死锁形式。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "避免：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "设计时考虑清楚锁的顺序，尽量减少嵌在的加锁交互数量",
+      "answer": "既然死锁的产生是两个线程无限等待对方持有的锁，那么只要等待时间有个上限不就好了Lock类中的tryLock方法去尝试获取锁，这个方法可以指定一个超时时限，在等待超过该时限之后变回返回一个失败信息。",
+      "detail": ""
+    },
+    {
+      "question": "线程池的大致原理",
+      "answer": "https://www.cnblogs.com/dolphin0520/p/3932921.html\nhttps://www.cnblogs.com/dongguacai/p/6030187.html\n如果并发的线程数量多，并且每个线程都是执行一个时间很短的任务就结束了，这样   频繁创建线程就会大大降低系统的效率，因为频繁创建线程和销毁线程需要时间。",
+      "detail": ""
+    },
+    {
+      "question": "ThreadPoolExecutor 继承AbstractExecutorService",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "corePoolSize：核心池的大小",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "maximumPoolSize：线程池最大线程数，",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "keepAliveTime：表示线程没有任务执行时最多保持多久时间会终止。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "unit：参数keepAliveTime的时间单位",
+      "answer": "workQueue：一个阻塞队列，用来存储等待执行的任务，这个参数的选择也很重要，会对线程池的运行过程产生重大影响",
+      "detail": ""
+    },
+    {
+      "question": "threadFactory：线程工厂，主要用来创建线程；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "handler：表示当拒绝处理任务时的策略，",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "2 线程池原理",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "判断线程池里的核心线程是否都在执行任务，如果不是（核心线程空闲或者还有核心线程没有被创建）则创建一个新的工作线程来执行任务。如果核心线程都在执行任务，则进入下个流程。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "线程池判断工作队列是否已满，如果工作队列没有满，则将新提交的任务存储在这个工作队列里。如果工作队列满了，则进入下个流程。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "判断线程池里的线程是否都处于工作状态，如果没有，则创建一个新的工作线程来执行任务。如果已经满了，则交给饱和策略来处理这个任务。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "线程的保活",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "黑色保活：不同的app进程，用广播相互唤醒（包括利用系统提供的广播进行唤醒）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "白色保活：启动前台Service",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "灰色保活：利用系统的漏洞启动前台Service",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "图片压缩",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "补间动画",
+      "answer": "Xml\ntween_image.startAnimation(anim); tween_image.startAnimation(anim);",
+      "detail": ""
+    },
+    {
+      "question": "代码",
+      "answer": "Animation translateAnimation = new TranslateAnimation(0，500，0，500);",
+      "detail": ""
+    },
+    {
+      "question": "mButton.startAnimation(translateAnimation);",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "属性动画",
+      "answer": "ValueAnimator anim = ValueAnimator.ofInt(0, 3);通过不断控制 值",
+      "detail": ""
+    },
+    {
+      "question": "的变化，再不断 手动 赋给对象的属性，从而实现动画效果。",
+      "answer": "Animator animator = AnimatorInflater.loadAnimator(context,",
+      "detail": ""
+    },
+    {
+      "question": "R.animator.set_animation);",
+      "answer": "// 载入XML动画",
+      "detail": ""
+    },
+    {
+      "question": "进程优先级",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "前台进程 可见进程 服务进程 后台进程 空进程",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "18 ，Handler的原理",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "handler封装消息的发送（主要包括消息发送给谁）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Looper------消息封装的载体。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "（1）内部包含一个MessageQueue，所有的Handler发送的消息都走向这个消息队列；",
+      "answer": "（2）Looper.Looper方法，就是一个死循环，不断地从MessageQueue取消息，如果有消息就处理消息，没",
+      "detail": ""
+    },
+    {
+      "question": "有消 息就阻塞。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "MessageQueue，一个消息队列，添加消息，处理消息",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "handler内部与Looper关联，handler-\\>Looper-\\>MessageQueue,handler发送消息就",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "是向MessageQueue队 列发送消息。",
+      "answer": "总结：handler负责发送消息，Looper负责接收handler发送的消息，并把消息回传给handler自己。",
+      "detail": ""
+    },
+    {
+      "question": "网络相关面试题",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "可以从中对比GET方法和POST方法的区别：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "GET方法需要用？将参数连接在URL后面，各个参数之间用&连接。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "POST方法发送请求时，仍然使用基本的URL，将参数信息放在请求实体中发送。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "网络协议",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "TCP建立连接",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "序列号 Sequeuece number(seq): 数据包本身的序列号，初始序列号是随机的。",
+      "answer": "确认号 Acknowledgment number(ack): 在接收端，用来通知发送端数据成功接收",
+      "detail": ""
+    },
+    {
+      "question": "标志位，标志位只有为 1 的时候才有效",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "SYN（synchronize）：表示在连接建立时用来同步序号。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "ACK：TCP协议规定，只有ACK=1时有效，也规定连接建立后所有发送的报文的ACK必须为1.",
+      "answer": "FIN（finish）：用来释放一个连接。当FIN=1时，表明此报文段的发送方的数据已经发送完毕，并要求释放连接。",
+      "detail": ""
+    },
+    {
+      "question": "第一次握手：客户端向服务端发送请求报文；即SYN=1，ACK=0，seq=x。",
+      "answer": "第二次握手：服务端收到客户端的请求报文，服务端会确认应答，告诉客户端已经收到请求了；即SYN=1，ACK=1,seq=y，ack=x+1；\n第三次握手：客户端收到服务端的确认应答后，再次向服务端进行确认应答，建立完整的连接；即ACK=1，seq=x+1，ack=y+1",
+      "detail": ""
+    },
+    {
+      "question": "简述 ：客向服发送报文 ， 2 服收到后 ，应答 告诉客 我收到了",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "3，收到后再次确认应答 完成",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "非常棒 👍，你这个问题涉及到 网络通信的核心基础， 无论是",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Android、后端、物联网、车载、还是游戏开发，这块都是关键知识。",
+      "answer": "我们来系统讲一下 ------ HTTP、TCP/IP、UDP、TCP、UDP+TCP 结合、Socket",
+      "detail": ""
+    },
+    {
+      "question": "的区别与关系 我会帮你梳理出逻辑关系 + 应用场景 + 实际使用示例",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "一、从整体看网络通信结构",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "网络通信是分层的，TCP/IP 模型 是互联网的基础。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "👉 所以：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "HTTP 是 应用层协议， TCP/UDP 是 传输层协议， IP 是 网络层协议。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "二、HTTP 是什么？",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "HTTP（HyperText Transfer Protocol） 是建立在 TCP 协议之上 的",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "应用层协议。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "特点：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "基于 请求/响应模型",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "可靠传输（因为底层是 TCP）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "一般用于网页、接口、文件传输",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "流程：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "浏览器(客户端)",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "↓ TCP三次握手",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "服务器",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "↓ 发送HTTP请求(Request)",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "↑ 返回HTTP响应(Response)",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "↓ TCP四次挥手关闭",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "常用请求示例：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "GET /user?id=100 HTTP/1.1",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Host: example.com",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "响应：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "HTTP/1.1 200 OK",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Content-Type: application/json",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "{\"name\":\"Tom\",\"age\":25}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "HTTP 与 HTTPS 的区别",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "HTTPS = HTTP + SSL/TLS + TCP",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "三、TCP 协议详解（可靠传输）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "TCP（Transmission Control Protocol） 是一种 面向连接、可靠、有序",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "的传输协议。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 特点",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "需要 三次握手 建立连接",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "有序传输（序列号）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "可靠重传（ACK 确认）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "流量控制、拥塞控制",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔄 三次握手（建立连接）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Client ---\\> SYN=1 ---\\> Server",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Client \\<--- SYN=1, ACK=1 \\<--- Server",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Client ---\\> ACK=1 ---\\> Server",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "建立双向连接通道。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔚 四次挥手（断开连接）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Client ---\\> FIN=1 ---\\> Server",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Client \\<--- ACK=1 \\<--- Server",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Client \\<--- FIN=1 \\<--- Server",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Client ---\\> ACK=1 ---\\> Server",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "确保双方都完成数据发送后断开。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "💡 应用场景：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "HTTP / HTTPS（网页请求）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "文件传输（FTP）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "邮件（SMTP）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "聊天（微信、QQ 等）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "⚡ 四、UDP 协议详解（快速传输）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "UDP（User Datagram Protocol） 是一种 无连接、不可靠 的传输协议。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 特点",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "无连接（不握手）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "不保证顺序、不保证可靠",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "传输速度快、延迟低",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "适合实时性强场景",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "💡 应用场景：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "实时音视频（WebRTC、VoIP）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "游戏同步",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "直播",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "局域网广播",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧩 对比：TCP vs UDP",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔄 五、TCP + UDP 结合使用",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "实际项目中经常\"混合使用\"👇",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧱 六、Socket 编程（核心概念）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Socket 是 对 TCP/UDP 的编程封装。 它是操作系统提供的\"网络通信接口\"。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "① TCP Socket 通信示例",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "服务器端",
+      "answer": "ServerSocket serverSocket = new ServerSocket(8080);",
+      "detail": ""
+    },
+    {
+      "question": "Socket socket = serverSocket.accept(); // 等待连接",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "InputStream input = socket.getInputStream();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "OutputStream output = socket.getOutputStream();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "BufferedReader reader = new BufferedReader(new",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "InputStreamReader(input));",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "String msg = reader.readLine();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "System.out.println(\"Client:\" + msg);",
+      "answer": "output.write(\"Hello Client`\\n`{=tex}\".getBytes());",
+      "detail": ""
+    },
+    {
+      "question": "socket.close();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "serverSocket.close();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "客户端",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Socket socket = new Socket(\"127.0.0.1\", 8080);",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "OutputStream output = socket.getOutputStream();",
+      "answer": "output.write(\"Hello Server`\\n`{=tex}\".getBytes());",
+      "detail": ""
+    },
+    {
+      "question": "BufferedReader reader = new BufferedReader(new",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "InputStreamReader(socket.getInputStream()));",
+      "answer": "System.out.println(\"Server:\" + reader.readLine());",
+      "detail": ""
+    },
+    {
+      "question": "socket.close();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 这是 基于 TCP 的可靠通信。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "② UDP Socket 通信示例",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "发送端",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "DatagramSocket socket = new DatagramSocket();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "byte\\[\\] data = \"Hello UDP\".getBytes();",
+      "answer": "DatagramPacket packet = new DatagramPacket(data, data.length,",
+      "detail": ""
+    },
+    {
+      "question": "InetAddress.getByName(\"127.0.0.1\"), 8080);",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "socket.send(packet);",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "socket.close();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "接收端",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "DatagramSocket socket = new DatagramSocket(8080);",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "byte\\[\\] buffer = new byte\\[1024\\];",
+      "answer": "DatagramPacket packet = new DatagramPacket(buffer, buffer.length);",
+      "detail": ""
+    },
+    {
+      "question": "socket.receive(packet);",
+      "answer": "System.out.println(\"Received:\" + new String(packet.getData(), 0,",
+      "detail": ""
+    },
+    {
+      "question": "packet.getLength()));",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "socket.close();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 这是 无连接的快速通信。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "七、Socket 在 Android 中的使用",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "常见应用场景：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "实时聊天（TCP 长连接）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "局域网通信（UDP 广播）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "IoT 设备控制（UDP + TCP）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "WebSocket（基于 TCP 的双向通信）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Android 例子（简单聊天）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Thread {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "val socket = Socket(\"192.168.1.10\", 8080)",
+      "answer": "val out = PrintWriter(socket.getOutputStream(), true)\nval input = BufferedReader(InputStreamReader(socket.getInputStream()))",
+      "detail": ""
+    },
+    {
+      "question": "out.println(\"Hello Server\")",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "val msg = input.readLine()",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Log.d(\"Socket\", \"Server says: $msg\")",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "socket.close()",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}.start()",
+      "answer": "⚠️ 注意：不能在主线程中使用网络（会抛 NetworkOnMainThreadException）",
+      "detail": ""
+    },
+    {
+      "question": "建议使用协程、HandlerThread、或 WorkManager。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "八、总结思维导图",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "┌────────────────────────┐",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "│        应用层          │",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "│   HTTP / MQTT / FTP    │",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "└─────────▲──────────────┘",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "│ 基于",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "┌─────────┴──────────────┐",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "│       传输层            │",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "│  TCP (可靠) / UDP (快)  │",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "└─────────▲──────────────┘",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "│ 依赖",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "┌─────────┴──────────────┐",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "│       网络层 (IP)       │",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "└────────────────────────┘",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "是否希望我帮你画一个 👉 TCP、UDP、HTTP、Socket",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "的交互时序图（带连接、数据、断开）？",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "可视化理解更直观，特别适合面试或讲解用。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "可靠 UDP 框架举例",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "实际项目策略（综合方案）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "总结思维导图",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "UDP 不可靠",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "│",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ 丢包 → 重传机制（ACK/超时）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ 乱序 → 序列号 + 缓冲排序",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ 重复 → 去重（seq）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ 无连接 → 心跳检测 + 超时重连",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ 校验错误 → CRC 校验",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "└─ 提升可靠性 → KCP / QUIC / RTP",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "19，非UI线程真的不能更新UI吗？",
+      "answer": "答：不一定，之所以子线程不能更新界面，是因为Android在线程的方法里面采用checkThread进行判断是否是主线程，而这个方法是在ViewRootImpl中的，这个类是在onResume里面才生成的，因此，如果这个时候子线程在onCreate方法里面生成更新UI，而且没有做阻塞，就是耗时多的操作，还是可以更新UI的。",
+      "detail": ""
+    },
+    {
+      "question": "20，OOM",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "非常棒 👍，这是 Android 性能优化中最重要、最容易\"坑\"的一部分。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "我们来系统讲解： 👉 内存泄漏（Memory Leak） 👉 常见泄漏场景与原因 👉",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "如何检测和解决（LeakCanary、MAT、Profiler） 👉 OOM（Out Of",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Memory）原因与防范策略",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧠 一、什么是内存泄漏（Memory Leak）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "📌 定义：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "对象在不再需要使用时，仍被其他对象持有引用，导致 GC",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "无法回收，内存占用不断增长。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "📌 举例说明：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "class A {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "static B b;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "class B { ... }",
+      "answer": "// somewhere",
+      "detail": ""
+    },
+    {
+      "question": "A.b = new B(); // b 是静态的",
+      "answer": "// 即使不再用 B，A.b 依然引用，无法释放",
+      "detail": ""
+    },
+    {
+      "question": "结果：B 一直被持有 → 泄漏。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "⚠️ 二、内存泄漏的危害",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "📦 三、常见内存泄漏场景总结（Android重点）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 1️⃣ 静态变量持有 Context / Activity",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "public class AppManager {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "public static Context context;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "// 错误写法",
+      "detail": ""
+    },
+    {
+      "question": "AppManager.context = activity;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "❌ Activity 会一直被持有，无法释放。 ✅ 解决：",
+      "answer": "AppManager.context = activity.getApplicationContext();",
+      "detail": ""
+    },
+    {
+      "question": "✅ 2️⃣ Handler 导致 Activity 泄漏",
+      "answer": "public class MainActivity extends AppCompatActivity {",
+      "detail": ""
+    },
+    {
+      "question": "private Handler handler = new Handler() {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "@Override",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "public void handleMessage(Message msg) { }",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "};",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔴 原因：Handler 是非静态内部类，持有外部 Activity 引用。 🔴",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "MessageQueue 未处理完消息时，Activity 无法回收。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 解决方式一：使用静态内部类 + 弱引用",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "static class MyHandler extends Handler {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "private final WeakReference<MainActivity> ref;",
+      "answer": "MyHandler(MainActivity activity) { ref = new WeakReference<>(activity); }",
+      "detail": ""
+    },
+    {
+      "question": "@Override",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "public void handleMessage(Message msg) {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "MainActivity act = ref.get();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "if (act != null) { /* update UI */ }",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 方式二：onDestroy 清除消息",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "@Override",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "protected void onDestroy() {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "handler.removeCallbacksAndMessages(null);",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "super.onDestroy();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 3️⃣ 线程 / AsyncTask 未停止",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "new Thread(() -\\> {",
+      "answer": "// 长时间任务",
+      "detail": ""
+    },
+    {
+      "question": "}).start();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔴 如果 Activity 退出了，但线程还在运行，会导致 Activity 被引用。 ✅",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "解决：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "使用 WeakReference 引用外部对象",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "在 onDestroy() 时中断线程",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "使用 LifecycleScope（Kotlin 协程自动感知生命周期）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 4️⃣ 非静态内部类泄漏",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "public class Outer {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "class Inner { }",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔴 Inner 持有 Outer 的隐式引用。 ✅ 解决：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "改为 static class Inner",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "或者不在 Activity 中直接定义匿名内部类（Listener/Callback）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 5️⃣ 单例持有 Context / View",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "public class MyManager {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "private static MyManager instance;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "private Context context;",
+      "answer": "public static MyManager getInstance(Context ctx) {\nif (instance == null) instance = new MyManager(ctx);",
+      "detail": ""
+    },
+    {
+      "question": "return instance;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "private MyManager(Context ctx) {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "this.context = ctx;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔴 错误：持有 Activity Context 导致无法释放。 ✅ 正确：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "this.context = ctx.getApplicationContext();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 6️⃣ 集合缓存未清理（List、Map、LruCache）",
+      "answer": "static List`<Object>`{=html} cache = new ArrayList\\<\\>();",
+      "detail": ""
+    },
+    {
+      "question": "🔴 缓存引用对象 → 永久不释放。 ✅ 解决：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "需要时清理 cache.clear()",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "或使用 WeakReference 或 SoftReference 缓存",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 7️⃣ 监听器 / 广播 / 注册未取消",
+      "answer": "BroadcastReceiver\nEventBus\nContentObserver\nListener\nSensorManager",
+      "detail": ""
+    },
+    {
+      "question": "🔴 注册后忘记 unregister。 ✅ 解决：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "@Override",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "protected void onDestroy() {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "unregisterReceiver(receiver);",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "EventBus.getDefault().unregister(this);",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 8️⃣ WebView 泄漏（最常见）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔴 原因：WebView 内部线程、JS 引擎持有 Activity。 ✅ 解决：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "webView.loadUrl(\"about:blank\");",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "webView.stopLoading();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "webView.clearHistory();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "webView.removeAllViews();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "webView.destroy();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "webView = null;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 9️⃣ Bitmap 未回收",
+      "answer": "Bitmap bmp = BitmapFactory.decodeResource(getResources(),",
+      "detail": ""
+    },
+    {
+      "question": "R.drawable.big);",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔴 长时间占用大量内存。 ✅ 解决：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "bmp.recycle();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "bmp = null;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "（API 26+ Bitmap 有自动回收机制）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 🔟 RxJava 未取消订阅",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔴 Observable 仍持有引用。 ✅ 解决：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Disposable disposable;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "disposable.dispose(); // onDestroy 里执行",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "或使用 AutoDispose / LifecycleObserver",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "💥 四、OOM（OutOfMemoryError）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "📌 定义：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "当应用请求内存超过系统限制时，就会抛出 OOM 异常。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "例如：",
+      "answer": "Caused by: java.lang.OutOfMemoryError: Failed to allocate a 16777216\nbyte allocation",
+      "detail": ""
+    },
+    {
+      "question": "🔍 常见 OOM 原因",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ OOM 解决策略",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔬 五、内存泄漏检测工具",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "LeakCanary 使用示例",
+      "answer": "debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'",
+      "detail": ""
+    },
+    {
+      "question": "自动检测泄漏 → 通知栏提示：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Activity com.xxx.MainActivity has leaked",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "点击即可看到引用链（谁持有了它）。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧩 六、开发中防止内存泄漏的通用策略",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 不要让 生命周期长的对象持有短生命周期引用 ✅ 静态变量不要持有 Context",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "/ View ✅ Handler、Runnable 使用静态内部类 + 弱引用 ✅",
+      "answer": "及时注销注册的监听器 / 广播 ✅ 使用 ApplicationContext 替代 Activity\nContext ✅ 使用 Profiler/LeakCanary 监控内存趋势 ✅ 避免一次性加载过多",
+      "detail": ""
+    },
+    {
+      "question": "Bitmap / 数据",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "💡 七、总结思维导图",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "内存泄漏",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "│",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ 静态引用 Activity",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ Handler / Thread / AsyncTask",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ Listener 未注销",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ WebView",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ Bitmap 未回收",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ RxJava 未取消",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "└─ 集合缓存未清理",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "↓",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "造成 OOM",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "│",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ 图片过大",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ 对象未释放",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ 频繁创建对象",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "└─ 多线程 / JNI 持有引用",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "是否希望我帮你做一份 👉 《Android 内存泄漏实战排查指南》（含 LeakCanary",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "使用步骤 + OOM 定位流程 + 常见日志解析）？ 可直接用于你项目中排查问题。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "22，ANR",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "出现ANR主要是因为我们在主线程中做了耗时操作 ， 分析 traces.txt",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "23 ,自定义View需要注意的地方",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "让View支持wrap_content",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "让View支持padding",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "尽量不要在View中使用Handler",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "View中如果有线程或者动画，需要及时停止",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "View带有滑动嵌套时，需要处理好滑动冲突问题",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "在View的onDraw方法中不要创建太多的临时对象，也就是new出来的对象。因为",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "onDraw方法会被频繁调用，如果有大量的临时对象，就会引起内存抖动，影响View的",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "效果",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "第三方框架使用：",
+      "answer": "Okhttp",
+      "detail": ""
+    },
+    {
+      "question": "用法",
+      "answer": "OkHttpClient --\\>Request --\\>Call call = client.newCall(request);",
+      "detail": ""
+    },
+    {
+      "question": "同步  -->Response response = call.execute()",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "异步 -->call.enqueue(new Callback()",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Call对象对于请求进行封装",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Dispatcher 对请求的分发",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "getResponseWithInterceptorChain() 拦截链 , （责任链模式）",
+      "answer": "Rxjava",
+      "detail": ""
+    },
+    {
+      "question": "A对于B变化做出快速反应，A就是观察者，B就是被观察者，比如警察盯小偷，只要一偷就抓人",
+      "answer": "其实本来 是 Observable.subscribe(Observer),不过是被观察者需要操作符，\nsubscribeOn(): 指定Observable(被观察者)所在的线程，或者叫做事件产生的线程。",
+      "detail": ""
+    },
+    {
+      "question": "observeOn(): 指定 Observer(观察者)所运行在的线程，或者叫做事件消费的线程。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Scheduler，相当于线程调度器，读：思改雀了",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "原理：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "subscribeOn()",
+      "answer": "Schedulers.io()生成的一个线程调度对象,此对象是维护这一个线程池,让操作在io线程池中执行",
+      "detail": ""
+    },
+    {
+      "question": "observeOn()",
+      "answer": "根据 mainThread() 源码的调用关系来看，最终返回的是 HandlerScheduler 对象，HandlerScheduler\n是一个 Scheduler 的子类，其内部封装了一个可以在主线程发送消息的 handler 对象。看到这里就大概明白了，",
+      "detail": ""
+    },
+    {
+      "question": "将 observer",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "切换到主线程去接收事件，内部就是通过一个可以在主线程发送消息的 Handler",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "去实现的。",
+      "answer": "Retrofit",
+      "detail": ""
+    },
+    {
+      "question": "就是为开发者节省这部分的工作量，Retrofit一方面从底层统一用OkHttp去做网络处理；另",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "一方面在外层灵活提供能直接融入业务逻辑的Call网络访问对象。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "具体来说，Retrofit只负责生产对象，生产能做网络请求的工作对象，他有点像一个工厂，只",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "提供产品，工厂本身不处理网络请求，产品才能处理网络请求。",
+      "answer": "Glide",
+      "detail": ""
+    },
+    {
+      "question": "Glide实现了内存缓存和磁盘缓存，且都设置了相应的大小，并根据lrus算法进行更新和删除。",
+      "answer": "Glide将加载了的图片添加到Map(Key, ResourceWeakReference)中实现内存缓存。\nGlide的加载顺序是先从内存中获取,若没有则从磁盘中获取,在没有则通过网络获取。从网络上获取到了图片之后若设置了可缓存,则会缓存到磁盘中;然后在通过相应的加载参数进行解码压缩裁剪等操作之后得到图片设置给ImageView,同时缓存到内存中。\nGlide通过为当前Activity添加一个fragment来监听相应的生命周期方法,从而实现加载与Activity生命周期绑定,onstart时进行加载、onstop时停止加载等。",
+      "detail": ""
+    },
+    {
+      "question": "Glide在开始加载图片时,会给当前ViewTarget设置对应的Request,同时也会ViewTarget中的View设置tag为Request。在listView复用时有了这个Tag值,从而解决错乱的问题",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "bitmap对象池，用来存储bitmap对象",
+      "answer": "MVC MVP\nAndroid中最典型MVC是ListView，要显示的数据是Model，界面中的ListView是View，控制数据怎样在ListView中显示是Controller。\n当用户发触事件的时候，view层会发送指令到controller层，接着controller去通知model层更新数据，model层更新完数据以后直接显示在view层上，这就是MVC的工作原理。\nMvp",
+      "detail": ""
+    },
+    {
+      "question": "V 给View一个 接口 ， 里面有操作视图的方法 ，比如showloading",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "M 给model一个接口， 里面是逻辑方法 ，比如登录 login逻辑，传入业务类监听",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "P 写一个方法 ，中用 model去调用model方法，传入view参数，比如",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "view.getname 什么的",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Vmpl 实现v ，实现方法 ，拿到p 的实体 ，传入自己 ，直接调用p方法",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "对于Android调用JS代码的方法有2种：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "通过WebView的loadUrl（）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "通过WebView的evaluateJavascript（）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "对于JS调用Android代码的方法有3种：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "通过WebView的addJavascriptInterface（）进行对象映射",
+      "answer": "通过 WebViewClient 的shouldOverrideUrlLoading ()方法回调拦截 url",
+      "detail": ""
+    },
+    {
+      "question": "通过 WebChromeClient",
+      "answer": "的onJsAlert()、onJsConfirm()、onJsPrompt（）方法回调拦截JS对话框alert()、confirm()、prompt（）",
+      "detail": ""
+    },
+    {
+      "question": "消息",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "双重检查锁定（Double CheckLock）实现单例",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "特点：延迟加载，解决了多余的同步，线程安全。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "两次判空，第一层是为了避免不必要的同步。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "第二层是为了在instance为null的情况下创建实例。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "一个私有的静态成员变量",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "一个公开的静态获取方法",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "方法中第一次判断空，第二次在同步方法中判断空",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "public class Singleton {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "private static Singleton instance = null;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "private Singleton () {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "public static Singleton getInstance () {",
+      "answer": "// If already initialized, no need to get lock everytime.",
+      "detail": ""
+    },
+    {
+      "question": "if (instance == null) {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "synchronized (Singleton.class) {  //记住同步锁加在方法上",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "if (instance == null) {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "instance = new Singleton();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "return instance ;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "设计模式",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "工厂方法模式",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "用处：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "1 创建抽象产品类，定义公共接口：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "2创建具体产品类，继承Product类：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "3 创建抽象工厂类，定义公共接口",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "4 创建具体工厂类，继承抽象工厂类，实现创建具体的产品",
+      "answer": "//产品A",
+      "detail": ""
+    },
+    {
+      "question": "Factory factoryA = new FactoryA();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Product productA = factoryA.create();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "productA.show();",
+      "answer": "//产品B",
+      "detail": ""
+    },
+    {
+      "question": "Factory factoryB = new FactoryB();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Product productB = factoryB.create();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "productB.show();",
+      "answer": "定义一个用于创建对象的接口，让子类决定实例化哪个类。生成复杂对象时，无需知道具体类名，只需知道相应的工厂方法即可。",
+      "detail": ""
+    },
+    {
+      "question": "缺点",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "一个具体工厂只能创建一种具体产品。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "增加新产品时，还需增加相应的工厂类，系统类的个数将成对增加，增加了系统的复杂度和性能开销。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "引入的抽象类也会导致类结构的复杂化。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "简单工厂模式",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "1 创建抽象产品类，定义公共接口：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "2 创建具体产品类，继承Product类：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "3 创建工厂类，创建具体的产品：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Factory.create(\"A\").show();//生产ProductA",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Factory.create(\"B\").show();//生产ProductB",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "生成复杂对象时，确定只有一个工厂类，可以使用简单工厂模式。否则有多个工厂类的话，使用工厂方法模式。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "抽象工厂模式",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "定义：为创建一组相关或者相互依赖的对象提供一个接口，而无需指定它们的具体类。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "1 创建抽象产品类 定义公共接口：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "2创建具体产品类 继承Product类：（2个）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "3 创建抽象工厂类 定义工厂中用来创建不同产品的方法",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "4 创建具体工厂类 继承Factory类：",
+      "answer": "ComputerFactory lenovoComputerFactory = new LenovoComputerFactory();",
+      "detail": ""
+    },
+    {
+      "question": "lenovoComputerFactory.createCPU().showCPU();",
+      "answer": "lenovoComputerFactory.createMemory().showMemory();",
+      "detail": ""
+    },
+    {
+      "question": "lenovoComputerFactory.createHD().showHD();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "屏幕的适配",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "非常好的问题 👍！ \"屏幕适配\" 是 Android UI 开发中永远绕不开的核心话题。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "我们来系统讲一遍：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "一、为什么要做屏幕适配",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "因为 Android 设备碎片化严重：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧠 二、核心概念：dp、sp、px、dpi",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "💡 公式：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "px = dp × (dpi / 160)",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "例：在 320dpi 屏幕上，1dp = 2px。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "📐 三、最基本的适配方法：dp + sp",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 原则：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "所有布局尺寸用 dp",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "所有文字尺寸用 sp",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "不直接写 px",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "📍示例：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "`<TextView",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:layout_width=\"100dp\"",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:layout_height=\"50dp\"",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:textSize=\"16sp\" />`{=html}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "这样系统会自动根据设备密度进行缩放。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧩 四、不同分辨率资源目录适配",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Android 提供了多套资源目录：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 把不同分辨率的图片放在不同文件夹中，系统会自动选择最合适的。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "例：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "res/",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ drawable-hdpi/logo.png (72x72)",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ drawable-xhdpi/logo.png (96x96)",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "└─ drawable-xxhdpi/logo.png (144x144)",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧭 五、常用的屏幕适配方案（重点）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 1️⃣ 相对布局 & 百分比布局",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "让控件根据父容器动态调整大小。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🟢 ConstraintLayout（推荐）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "可精确控制比例：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "`<ImageView",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:layout_width=\"0dp\"",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:layout_height=\"0dp\"",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "app:layout_constraintDimensionRatio=\"16:9\"",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "app:layout_constraintTop_toTopOf=\"parent\"",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "app:layout_constraintStart_toStartOf=\"parent\"",
+      "answer": "app:layout_constraintEnd_toEndOf=\"parent\"/>`{=html}",
+      "detail": ""
+    },
+    {
+      "question": "保持 16:9 比例，自适应宽高。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 2️⃣ 使用 weightsum 或 layout_weight",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "线性布局等分宽高：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "`<LinearLayout",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:orientation=\"horizontal\"",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:weightSum=\"3\">`{=html}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "<View",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:layout_width=\"0dp\"",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:layout_height=\"match_parent\"",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:layout_weight=\"1\" />",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "...",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "`</LinearLayout>`{=html}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 3️⃣ 使用限定符（Qualifier）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "例如：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "values-sw360dp/",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "values-sw480dp/",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "values-sw600dp/",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "系统会根据 最小宽度 sw（smallest width）自动选择资源。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "通常用于平板适配，例如：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "手机用 values-sw360dp",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "平板用 values-sw600dp",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 4️⃣ AutoSize 自动适配方案（官方推荐）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Android 8.0 后官方提供 Density 自适应方案",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "在 AndroidManifest.xml 中添加：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "`<application",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:resizeableActivity=\"true\"",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:supportsRtl=\"true\"",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:largeHeap=\"true\"",
+      "answer": "tools:replace=\"android:resizeableActivity\" />`{=html}",
+      "detail": ""
+    },
+    {
+      "question": "并在 resources 中定义不同 dimens.xml：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "values-sw360dp/dimens.xml",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "values-sw480dp/dimens.xml",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "values-sw600dp/dimens.xml",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 5️⃣ 今日最主流方案：AndroidAutoSize（适配所有屏幕）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "三方库：AndroidAutoSize 可实现：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "按设计稿宽高等比例缩放",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "支持 Activity/Fragment 独立适配",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "支持 dp/sp 自动转换",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "配置：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "implementation 'me.jessyan:autosize:1.2.1'",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "使用：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "AutoSizeConfig.getInstance()",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": ".setBaseOnWidth(true)",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": ".setDesignWidthInDp(360);",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "效果：不同屏幕自动按设计图比例缩放。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 6️⃣ 自定义 Density 适配（头条方案）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "字节跳动（抖音、今日头条）使用的适配原理。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "📘 核心思想：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "动态修改 DisplayMetrics.density，让 UI 尺寸按照设计稿宽度缩放。",
+      "answer": "public static void setCustomDensity(Activity activity, Application",
+      "detail": ""
+    },
+    {
+      "question": "application) {",
+      "answer": "DisplayMetrics appDisplayMetrics = application.getResources().getDisplayMetrics();\nfloat targetDensity = appDisplayMetrics.widthPixels / 360f; // 设计图宽度\nfloat targetScaledDensity = targetDensity * (appDisplayMetrics.scaledDensity / appDisplayMetrics.density);\nint targetDensityDpi = (int) (160 * targetDensity);",
+      "detail": ""
+    },
+    {
+      "question": "appDisplayMetrics.density = targetDensity;",
+      "answer": "appDisplayMetrics.scaledDensity = targetScaledDensity;",
+      "detail": ""
+    },
+    {
+      "question": "appDisplayMetrics.densityDpi = targetDensityDpi;",
+      "answer": "DisplayMetrics activityDisplayMetrics = activity.getResources().getDisplayMetrics();",
+      "detail": ""
+    },
+    {
+      "question": "activityDisplayMetrics.density = targetDensity;",
+      "answer": "activityDisplayMetrics.scaledDensity = targetScaledDensity;\nactivityDisplayMetrics.densityDpi = targetDensityDpi;",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "👉 这样可实现\"所有设备宽度统一为 360dp 基准\"的效果。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧮 六、字体适配策略",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "字体统一用 sp",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "不同设备字体大小不一致时，可使用：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:includeFontPadding=\"false\"",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "或在设计中定义最大最小字体：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:autoSizeTextType=\"uniform\"",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:autoSizeMinTextSize=\"10sp\"",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:autoSizeMaxTextSize=\"18sp\"",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧭 七、刘海屏 / 全面屏 / 状态栏适配",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "1️⃣ 判断是否有刘海：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "WindowInsets insets = view.getRootWindowInsets();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "DisplayCutout cutout = insets.getDisplayCutout();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "if (cutout != null) { /\\* 有刘海 \\*/ }",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "2️⃣ 让内容延伸到状态栏：",
+      "answer": "WindowCompat.setDecorFitsSystemWindows(window, false);",
+      "detail": ""
+    },
+    {
+      "question": "3️⃣ 使用 fitsSystemWindows：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:fitsSystemWindows=\"true\"",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧩 八、横竖屏适配",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "在 AndroidManifest：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "android:configChanges=\"orientation\\|screenSize\"",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "或通过资源目录：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "layout-land/ → 横屏布局",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "layout-port/ → 竖屏布局",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "💡 九、适配总结（思维导图）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "屏幕适配",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "│",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ 单位适配：dp、sp",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ 图片适配：drawable-xxxhdpi",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ 布局适配：ConstraintLayout / weight",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ 资源限定符：values-sw600dp",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ 自动适配库：AndroidAutoSize",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ Density 动态修改方案",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ 字体适配：sp / autoSizeTextType",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "├─ 特殊屏适配：刘海屏、横竖屏",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "└─ 调试工具：Layout Inspector / Density Test",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "是否希望我帮你画一个 「屏幕适配思维导图 + 实战示例代码」？ 包括： ✅",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "AutoSize 配置步骤 ✅ 头条方案完整封装类 ✅ 不同 dpi 下效果对比图",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "可直接放你项目里使用。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Android 系统os",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "第一、操作系统层（OS）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "第二、各种库（Libraries）和Android 运行环境（RunTime）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "第三、应用程序框架（Application Framework）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "第四、应用程序（Application）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Android 性能优化",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "工具使用流程：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Memory --\\>内存泄漏发生时的主要表现为内存抖动(看图）--》将 heap dump",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "保存为 HPROF",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "通过包名来进行查找 --》一层的层",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Ddms 选中一应用进行测试就可以 ，点击上面的线程标记，在模拟器中操作一遍",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "， 关闭线程标记 ，",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Hierarchy Viewer提供了一个可视化的界面来观测布局的层级,",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "让我们可以优化布局层级, 删除多余的不必要的View层级, 提升布局速度",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "TraceView一个图形化的工具,",
+      "answer": "用来展示和分析方法的执行时间。也是一款性能优化的神器。可以通过像打log一样的方式去定位代码的执行时间，从而可以准确定位是哪一段代码的执行消耗了太多时间。相比SysTrace，功能更强大，使用起来也更复杂。",
+      "detail": ""
+    },
+    {
+      "question": "卡顿：每个 View",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "绘制中有三个核心步骤：Measure、Layout、Draw。具体实现是从 ViewRootImp",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "类的performTraversals() 方法开始执行，Measure 和",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Layout都是通过递归来获取 View",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "的大小和位置，并且以深度作为优先级，可以看出层级越深、元素越多、耗时也就越长。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Android 系统每隔 16ms 发出 VSYNC 信号，触发对 UI",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "进行渲染，如果某个操作花费的时间是 24ms ，系统在得到 VSYNC",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "信号时就无法正常进行正常渲染，这样就发生了丢帧现象。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "那布局优化有哪些方法呢，主要通过减少层级、减少测量和绘制时间、提高复用性三个方面入手。总结如下：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "减少层级。合理使用 RelativeLayout 和 LinerLayout，合理使用Merge。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "提高显示速度。使用",
+      "answer": "ViewStub，它是一个看不见的、不占布局位置、占用资源非常小的视图对象。`<ViewStub    android:layout=\"@layout/layout_to_show\">`{=html}\nViewStub。可以在程序运行的过程中，通过懒加载的模式inflate进布局资源中当一个ViewStub的inflate()方法被调用或者被设为显示时，这个ViewStub使用设定的View才会被加载，并替换当前ViewStub的位置。因此，ViewStub存在于视图层次，直到setVisibility(int)或inflate()方法被调用，否则是不加载控件的，所以消耗的资源小。通常也叫它为\"懒惰的include\"。",
+      "detail": ""
+    },
+    {
+      "question": "布局复用。可以通过 标签来提高复用。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "尽可能少用wrap_content。wrap_content 会增加布局 measure",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "时计算成本，在已知宽高为固定值时，不用wrap_content 。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "删除控件中无用的属性。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "过度绘制：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Profile GPU Rendering工具手机中的",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "布局上的优化。移除 XML 中非必须的背景，移除 Window",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "默认的背景、按需显示占位背景图片",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "自定义View优化。使用",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "canvas.clipRect()来帮助系统识别那些可见的区域，只有在这个区域内才会被绘制。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "启动优化",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "UI 布局。应用一般都有闪屏页，优化闪屏页的 UI 布局，可以通过 Profile GPU",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Rendering 检测丢帧情况。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "启动加载逻辑优化。可以采用分布加载、异步加载、延期加载策略来提高应用启动速度。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "数据准备。数据初始化分析，加载数据可以考虑用线程初始化等策略。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "合理的刷新机制",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "缩小刷新区域",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "优化内存空间",
+      "answer": "对象引用。强引用、软引用、弱引用、虚引用四种引用类型，根据业务需求合理使用不同，选择不同的引用类型。\n减少不必要的内存开销。注意自动装箱，增加内存复用，比如有效利用系统自带的资源、视图复用、对象池、Bitmap对象的复用。\n使用最优的数据类型。比如针对数据类容器结构，可以使用ArrayMap数据结构，避免使用枚举类型，使用缓存Lrucache等等。",
+      "detail": ""
+    },
+    {
+      "question": "图片内存优化。可以设置位图规格，根据采样因子做压缩，用一些图片缓存方式对图片进行管理等等。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "资源优化",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "res资源优化",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "（1）只使用一套图片，使用高分辨率的图片。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "（2）UI设计在ps安装TinyPNG插件，对图片进行无损压缩。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "性能优化",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Android 性能优化是一个系统性工程，涵盖",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "启动速度、内存使用、绘制效率、耗电量、包体积、网络性能",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "等多个方面。下面我帮你整理一份 **全方位性能优化清单（含思路 + 实践方法 +",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "工具）**👇",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧩 一、启动速度优化（冷启动 & 热启动）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "1️⃣ 冷启动优化",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "冷启动指应用从进程未启动状态进入可交互状态。 优化思路：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "延迟初始化：非必要 SDK、三方库延后到首页后再初始化。",
+      "answer": "减少主线程阻塞：避免在 Application.onCreate()、Activity.onCreate()",
+      "detail": ""
+    },
+    {
+      "question": "做耗时操作。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "使用异步加载：耗时任务放入后台线程。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "SplashActivity 优化：用轻量布局，避免加载大图。",
+      "answer": "MultiDex 优化：提前安装 MultiDex 或使用 Android 5.0+ 的 native",
+      "detail": ""
+    },
+    {
+      "question": "multidex。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "调试工具：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "adb shell am start -W your.package/.MainActivity",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Android Studio Profiler → \"Startup\" 分析",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "TraceView 或 Systrace",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🎨 二、UI 绘制与流畅度优化（掉帧、卡顿）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "目标：保持 16ms/帧（60fps）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "常见原因：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "主线程执行耗时操作（网络、IO、复杂计算）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "过度绘制（Overdraw）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "不必要的布局层级（View 嵌套太深）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "RecyclerView 滑动卡顿（item 绑定耗时）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "优化措施：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "使用 布局优化工具",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Layout Inspector / Hierarchy Viewer",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "使用 ConstraintLayout、ViewStub、merge 减少层级",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "避免过度绘制",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "开发者选项中开启\"GPU过度绘制调试\"，让背景透明、去掉多余层",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "异步更新UI",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "使用 Handler、Coroutine、AsyncTask（不推荐）等。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "RecyclerView 优化",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "开启 setHasFixedSize(true)",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "使用 DiffUtil",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "ViewHolder 中缓存资源，减少 findViewById",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧠 三、内存优化（避免OOM）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "检查点：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "大图加载、缓存泄漏、Context 泄漏",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Activity / Fragment / Singleton 持有引用未释放",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Handler 未移除消息、未注销注册监听",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "优化手段：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "使用 LeakCanary 检测内存泄漏",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "图片加载优化",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "使用 Glide、Picasso、Fresco",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "按需压缩、使用 RGB_565、thumbnail",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "避免内存抖动",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "不在 onDraw() 内创建对象",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "循环中避免 String 拼接，使用 StringBuilder",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "⚡ 四、CPU & 耗电优化",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "减少WakeLock（保持CPU唤醒会耗电）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "减少后台轮询（用 WorkManager / AlarmManager 精准调度）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "降低频繁绘制",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "使用 invalidate() 时，尽量指定重绘区域",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "动画优化",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "使用硬件加速（android:hardwareAccelerated=\"true\"）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "避免频繁属性动画引起过度计算",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "工具：",
+      "answer": "Battery Historian\nSystrace\nCPU Profiler",
+      "detail": ""
+    },
+    {
+      "question": "🌐 五、网络性能优化",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "请求合并：减少 HTTP 次数",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "缓存策略：使用 OkHttp 缓存或本地数据库缓存",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Gzip 压缩：服务端启用压缩",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "图片CDN：按需加载不同分辨率",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "弱网优化：重试机制 + 降级方案",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "工具：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Charles、Stetho、OkHttp Interceptor",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "📦 六、包体积优化",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "删除无用资源：res/raw, res/drawable",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "压缩图片：WebP / avif",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "启用 Proguard / R8 混淆压缩代码",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "动态加载（Split APK、Feature Module）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "移除无用的三方库依赖",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "使用 android:extractNativeLibs=\"false\" 减少解压",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧰 七、数据库性能优化",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "使用批量插入事务（beginTransaction()）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "合理使用索引",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Room / SQLite 配合 WAL 模式提高写入效率",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "避免主线程访问数据库（使用异步）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔬 八、性能检测工具清单",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "💡 九、进阶优化方向",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "使用 Jetpack Compose 提升UI渲染性能（更少重绘）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "多进程架构 分离主进程与耗时逻辑",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "预加载 / 预热机制（如提前加载首页数据）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "全链路性能监控系统（结合 Firebase Performance / Matrix）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "是否希望我帮你出一份 「Android 性能优化实战 checklist」？ ✅",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "包含：每个优化点的\"检测方法 + 实现代码示例 + 工具命令\"。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "这样你可以直接用在项目里。",
+      "answer": "太好了 👍 下面是我为你整理的 《Android 性能优化实战 Checklist》 ------",
+      "detail": ""
+    },
+    {
+      "question": "这份清单非常实用，能直接应用在你自己的项目中。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "内容包括：检测方式、代码示例、优化工具、建议实践。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🚀 Android 性能优化实战 Checklist",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧩 一、启动速度优化",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🎨 二、UI 绘制与流畅度优化",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "\\",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧠 三、内存优化",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "⚡ 四、CPU 与耗电优化",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🌐 五、网络性能优化",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "📦 六、包体积优化",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "💾 七、数据库优化",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔍 八、性能检测工具汇总",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧰 九、建议项目实战配置（推荐）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "放到 Application 里初始化：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "if (BuildConfig.DEBUG) {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "StrictMode.setThreadPolicy(",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "new StrictMode.ThreadPolicy.Builder()",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": ".detectAll()",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": ".penaltyLog()",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": ".build()",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": ");",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "StrictMode.setVmPolicy(",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "new StrictMode.VmPolicy.Builder()",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": ".detectLeakedSqlLiteObjects()",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": ".detectLeakedClosableObjects()",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": ".penaltyLog()",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": ".build()",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": ");",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "添加性能监控入口（调试开关）：",
+      "answer": "Looper.getMainLooper().setMessageLogging(msg -\\> {",
+      "detail": ""
+    },
+    {
+      "question": "long now = System.currentTimeMillis();",
+      "answer": "// 检测帧耗时",
+      "detail": ""
+    },
+    {
+      "question": "});",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧠 十、综合优化建议",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ \"先量化，后优化\"------用数据找瓶颈 ✅",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "\"异步+缓存+延迟加载\"------主线程减负三法宝 ✅",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "\"减少绘制层级、减少内存对象、减少网络请求\" ✅ \"工具优先：Profiler \\>",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "LeakCanary \\> TraceView \\> Systrace\"",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "是否希望我下一步帮你生成一份 👉 【Android 性能优化代码模板包】",
+      "answer": "包含启动优化类、LeakCanary 初始化类、StrictMode 工具类、RecyclerView",
+      "detail": ""
+    },
+    {
+      "question": "优化封装？ 这样你可以直接复制到项目中使用。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "非常好的问题 👍 \"Android 跨进程通信（IPC）\"",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "是系统底层和高级开发（如多进程架构、插件框架、系统服务）都离不开的知识点。",
+      "answer": "下面我帮你总结最全的几种 IPC（Inter-Process Communication）方式 👇",
+      "detail": ""
+    },
+    {
+      "question": "🧩 一、为什么需要跨进程通信？",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "每个 Android App 都运行在独立的 进程和沙箱 中：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "不同进程的数据、内存空间互相隔离。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "如果我们：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "启动了多进程（android:process=\":remote\"）；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "或要和其他 App 交互（比如系统联系人、支付服务）；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "就需要一种机制，让不同进程之间交换数据、调用方法，这就是",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "IPC（跨进程通信）。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "⚙️ 二、Android 跨进程通信的常见方式总览",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧱 三、各方式详细讲解",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔹 1️⃣ Binder（核心机制）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Android 所有的 IPC 都是基于 Binder 实现的。 包括",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "AIDL、Messenger、ContentProvider、系统服务等。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "📦 特点：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "速度快（内核级共享内存）；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "安全性高；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "支持对象引用；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "系统核心服务都基于它。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧰 实现方式：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "自定义 AIDL 接口；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "系统自动生成 Stub / Proxy；",
+      "answer": "Client 调用 Proxy → Kernel Binder Driver → Service Stub。",
+      "detail": ""
+    },
+    {
+      "question": "📌 使用场景：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "跨进程方法调用（AIDL）；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "系统服务（如 AMS、WMS）；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "大型 App 的多进程模块通信。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔹 2️⃣ Messenger（基于 Binder 封装）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "一种轻量级跨进程消息通信机制，底层仍然是 Binder。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧰 用法示例：",
+      "answer": "// 服务端",
+      "detail": ""
+    },
+    {
+      "question": "Handler handler = new Handler(msg -\\> {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Log.d(\"Server\", \"receive: \" + msg.what);",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "return true;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "});",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Messenger messenger = new Messenger(handler);",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "@Override",
+      "answer": "public IBinder onBind(Intent intent) { return messenger.getBinder(); }\n// 客户端",
+      "detail": ""
+    },
+    {
+      "question": "Messenger client = new Messenger(serviceBinder);",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Message msg = Message.obtain();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "msg.what = 1;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "client.send(msg);",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "📦 特点：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "只能传 Message（轻量消息）；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "不支持并发、多接口；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "实现简单；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "适合命令式通信（如\"开始下载\"、\"停止播放\"）。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔹 3️⃣ ContentProvider",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "通过 URI + ContentResolver 实现不同进程的数据共享。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "📦 特点：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "支持数据库、文件访问；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "可限制权限；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "天生支持跨进程；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "系统级 Provider 非常多（联系人、媒体库）。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "📌 场景：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "不同 App 之间共享数据；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "文件共享（通过 FileProvider）；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "模块间统一数据接口。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔹 4️⃣ BroadcastReceiver",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "一种\"一对多\"的跨进程通信方式。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "📦 特点：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "无需绑定；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "支持系统全局广播；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "支持跨进程；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "但实时性差、性能低。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "📌 场景：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "系统事件（如网络变化、电量、安装卸载）；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "自定义广播（模块通知）。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔹 5️⃣ Socket 通信",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "基于 TCP/UDP 实现，属于\"网络层\"通信。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "📦 特点：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "可跨设备、跨进程；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "双向通信；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "自定义协议；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "比 Binder 慢，但更灵活。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "📌 场景：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "即时通讯；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "局域网设备交互；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Android 与 PC 通信。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔹 6️⃣ 文件共享 / SharedPreferences",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "多进程共享同一个文件或 XML。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "📦 特点：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "简单，但同步难；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "需加锁；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "不支持实时更新；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "性能差。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "📌 场景：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "简单的日志共享；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "临时状态同步。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔹 7️⃣ ContentResolver + URI",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "其实它是访问 ContentProvider 的入口。 通过统一的 URI 地址，调用",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "query()/insert()/update()/delete()，系统自动完成跨进程通信。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔹 8️⃣ 第三方封装（如 EventBus + Binder）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "一些大型框架（如插件化框架、热更新框架）会自己封装 IPC 通道，比如：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "HermesEventBus（Binder + EventBus）；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "ARouter 支持跨进程通信；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "MMKV / Messenger / gRPC 混合使用。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🔐 四、性能与难度对比",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "📦 五、实际开发推荐组合",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 六、一句话总结",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "📜 Android 所有的跨进程通信，本质都是基于 Binder 实现的。",
+      "answer": "只不过上层封装出了不同的使用方式（AIDL、Messenger、Provider、Broadcast）。",
+      "detail": ""
+    },
+    {
+      "question": "是否希望我帮你画一张「Android 跨进程通信方式总览图」？",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "包含每种方法的连接方向、优缺点和典型使用场景，清晰又好记。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "线程",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "非常好 👍 这是 Android 面试与实际开发中都非常重要的一块 ------",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "多线程、异步、并发、线程池机制。 下面我给你系统梳理一遍，包括： 👉",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "多线程的几种实现方式 👉 异步与并发区别 👉 线程池分类与使用 👉",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "每种都带上清晰代码例子。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧩 一、Android 中多线程的几种实现方式",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "1️⃣ 继承 Thread 类",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "最基础的方式，直接创建线程。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "class MyThread extends Thread {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "@Override",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "public void run() {",
+      "answer": "System.out.println(\"线程运行：\" + Thread.currentThread().getName());",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "// 使用",
+      "detail": ""
+    },
+    {
+      "question": "new MyThread().start();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "特点：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "简单易用；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "不便于扩展（因为 Java 单继承）；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "不方便线程间共享资源。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "2️⃣ 实现 Runnable 接口",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "推荐方式，可复用逻辑。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Runnable task = new Runnable() {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "@Override",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "public void run() {",
+      "answer": "System.out.println(\"Runnable线程：\" + Thread.currentThread().getName());",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "};",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "new Thread(task).start();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "优点：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "可与其他类继承共存；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "可被多个线程共享执行；",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "推荐常用。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "3️⃣ 使用 Callable + Future",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "可获得线程返回结果（Runnable 没有返回值）。",
+      "answer": "Callable`<Integer>`{=html} task = new Callable`<Integer>`{=html}() {",
+      "detail": ""
+    },
+    {
+      "question": "@Override",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "public Integer call() throws Exception {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Thread.sleep(1000);",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "return 42;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "};",
+      "answer": "FutureTask`<Integer>`{=html} futureTask = new FutureTask\\<\\>(task);",
+      "detail": ""
+    },
+    {
+      "question": "new Thread(futureTask).start();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "try {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Integer result = futureTask.get(); // 阻塞等待结果",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "System.out.println(\"结果: \" + result);",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "} catch (Exception e) {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "e.printStackTrace();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "4️⃣ 使用 HandlerThread（Android 特有）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "带有消息队列的线程，可与 Handler 协作。",
+      "answer": "HandlerThread handlerThread = new HandlerThread(\"MyHandlerThread\");",
+      "detail": ""
+    },
+    {
+      "question": "handlerThread.start();",
+      "answer": "Handler handler = new Handler(handlerThread.getLooper());",
+      "detail": ""
+    },
+    {
+      "question": "handler.post(() -\\> {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Log.d(\"TAG\", \"在子线程执行任务\");",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "});",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "适合场景： 后台长期任务，如日志写入、文件IO、数据库等。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "5️⃣ 使用 AsyncTask（已过时，但面试常问）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "主要用于更新 UI + 后台任务。",
+      "answer": "class MyTask extends AsyncTask\\<Void, Integer, String\\> {",
+      "detail": ""
+    },
+    {
+      "question": "@Override",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "protected String doInBackground(Void... voids) {",
+      "answer": "// 子线程执行",
+      "detail": ""
+    },
+    {
+      "question": "return \"任务完成\";",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "@Override",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "protected void onPostExecute(String result) {",
+      "answer": "// 主线程更新 UI",
+      "detail": ""
+    },
+    {
+      "question": "Log.d(\"TAG\", result);",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "new MyTask().execute();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "✅ 新项目推荐使用 Kotlin Coroutine 或 WorkManager 替代。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "6️⃣ 使用 ExecutorService（线程池）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "线程池管理多线程任务。",
+      "answer": "ExecutorService executor = Executors.newFixedThreadPool(3);",
+      "detail": ""
+    },
+    {
+      "question": "for (int i = 0; i \\< 5; i++) {",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "int finalI = i;",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "executor.execute(() -> {",
+      "answer": "Log.d(\"TAG\", \"任务 \" + finalI + \" 在线程：\" + Thread.currentThread().getName());",
+      "detail": ""
+    },
+    {
+      "question": "});",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "}",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "executor.shutdown();",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "⚙️ 二、异步 vs 并发",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "👉 异步 ≠ 并发：异步是一种执行策略，并发是执行能力。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🚀 三、线程池（ThreadPoolExecutor）",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "常见类型：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "自定义线程池",
+      "answer": "ThreadPoolExecutor executor = new ThreadPoolExecutor(",
+      "detail": ""
+    },
+    {
+      "question": "2,        // corePoolSize",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "4,        // maximumPoolSize",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "60,       // keepAliveTime",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "TimeUnit.SECONDS,",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "new LinkedBlockingQueue<>(10), // 任务队列",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Executors.defaultThreadFactory(),",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "new ThreadPoolExecutor.AbortPolicy() // 拒绝策略",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": ");",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🧠 四、Android 常用异步方案总结",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "🌈 总结一句话：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "Android 多线程的核心是： 合理使用异步（不阻塞主线程）+ 并发（提升性能）+",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "线程池（控制资源）。",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "是否要我帮你画一张【Android 多线程与异步机制思维导图（图片版）】，包括：",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "所有实现方式",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "异步 vs 并发区别",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "线程池分类结构 一图总结整个知识体系？",
+      "answer": "",
+      "detail": ""
+    }
+  ],
+  "kotlin": [
+    {
+      "question": "2， 伴生对象? 对象表达式 ？ 委托？",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "3， 空安全符号？",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "4， 协程中怎么启动 ， 启动方式有什么不同 ？调度器是怎么样的？Job 是什么？并发 ？挂起是怎么回事？",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "5， 协程的高级用法，flow ?",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "6， Hilt 和koin 框架？",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "7， Compose 是什么？生命周期？附带效应 ？怎么解决附带效应？",
+      "answer": "",
+      "detail": ""
+    }
+  ],
+  "flutter": [
+    {
+      "question": "Flutter 是什么？",
+      "answer": "Flutter 是 Google 开源的 UI 工具包，帮助开发者通过一套代码库高效构建多平台精美应用，支持移动、Web、桌面和嵌入式平台。",
+      "detail": "核心特点：\n1. 跨平台：一套代码运行在 Android, iOS, Web, Windows, macOS, Linux。\n2. 高性能：使用 Skia 图形引擎直接绘制，接近原生性能。\n3. 热重载 (Hot Reload)：快速查看代码修改效果，无需重启应用。"
+    },
+    {
+      "question": "Flutter 和 React Native 有什么区别？",
+      "answer": "1. 架构：Flutter 使用自己的渲染引擎 (Skia)，而 RN 使用原生组件映射。\n2. 语言：Flutter 使用 Dart，RN 使用 JavaScript。\n3. 性能：Flutter 通常性能更好，因为没有 JS Bridge 的通信开销。",
+      "detail": ""
+    },
+    {
+      "question": "StatelessWidget 和 StatefulWidget 的区别？",
+      "answer": "StatelessWidget 是不可变的，一旦创建就不能改变状态。StatefulWidget 持有状态 (State)，当状态改变时可以触发 UI 重绘。",
+      "detail": "使用场景：\n- StatelessWidget: 图标、文本、纯展示页面。\n- StatefulWidget: 计数器、表单、动画、网络请求页面。"
+    },
+    {
+      "question": "Flutter 的生命周期？",
+      "answer": "StatefulWidget 的生命周期主要包括：\ncreateState -> initState -> didChangeDependencies -> build -> didUpdateWidget -> setState -> deactivate -> dispose",
+      "detail": ""
+    },
+    {
+      "question": "什么是 Widget, Element, RenderObject？",
+      "answer": "Widget: UI 的配置信息 (蓝图)。\nElement: Widget 的实例，维护树结构。\nRenderObject: 负责实际的布局和绘制。",
+      "detail": "Flutter 的三棵树机制是其高性能的核心。"
+    }
+  ]
+}
