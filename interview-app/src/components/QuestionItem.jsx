@@ -110,7 +110,7 @@ const QuestionItem = ({ data, onUpdate, onDelete, onInsert, isBatchMode, isSelec
                 value={editData.answer}
                 onChange={(e) => handleChange('answer', e.target.value)}
                 placeholder="输入参考答案..."
-                rows={5}
+                rows={15}
               />
             ) : (
               <div className="answer-text">
@@ -140,7 +140,7 @@ const QuestionItem = ({ data, onUpdate, onDelete, onInsert, isBatchMode, isSelec
                       value={editData.detail}
                       onChange={(e) => handleChange('detail', e.target.value)}
                       placeholder="输入详解..."
-                      rows={5}
+                      rows={15}
                     />
                   ) : (
                     <pre>{data.detail}</pre>

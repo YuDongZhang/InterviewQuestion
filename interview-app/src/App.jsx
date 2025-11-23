@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Sidebar from './components/Sidebar';
 import QuestionList from './components/QuestionList';
+import AnimationList from './components/AnimationList';
 import defaultQuestionsData from './data/questions.json';
 
 function App() {
@@ -104,15 +105,19 @@ function App() {
         onSelectCategory={setActiveCategory}
       />
       <main className="main-content">
-        <QuestionList
-          questions={currentQuestions}
-          category={activeCategory}
-          onUpdateQuestion={handleUpdateQuestion}
-          onAddQuestion={handleAddQuestion}
-          onDeleteQuestion={handleDeleteQuestion}
-          onBatchDelete={handleBatchDelete}
-          onInsertQuestion={handleInsertQuestion}
-        />
+        {activeCategory === 'animations' ? (
+          <AnimationList />
+        ) : (
+          <QuestionList
+            questions={currentQuestions}
+            category={activeCategory}
+            onUpdateQuestion={handleUpdateQuestion}
+            onAddQuestion={handleAddQuestion}
+            onDeleteQuestion={handleDeleteQuestion}
+            onBatchDelete={handleBatchDelete}
+            onInsertQuestion={handleInsertQuestion}
+          />
+        )}
       </main>
     </div>
   );
