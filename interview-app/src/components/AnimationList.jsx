@@ -3,6 +3,8 @@ import AndroidViewDrawCycle from './animations/AndroidViewDrawCycle';
 import FlutterArchitectureDemo from './animations/FlutterArchitectureDemo';
 import FlutterRenderingFactory from './animations/FlutterRenderingFactory';
 import FlutterStreamDemo from './animations/FlutterStreamDemo';
+import KotlinFlowDemo from './animations/KotlinFlowDemo';
+import SharedFlowDemo from './animations/SharedFlowDemo';
 
 const AnimationList = () => {
     const [selectedAnimation, setSelectedAnimation] = useState(null);
@@ -31,6 +33,18 @@ const AnimationList = () => {
             title: 'Flutter Stream 演示',
             description: '演示 Stream 数据流向：Source -> Pipe -> Listener',
             component: FlutterStreamDemo
+        },
+        {
+            id: 'kotlin-flow',
+            title: 'Kotlin 协程 Flow',
+            description: '演示 Kotlin Flow 的冷流（Cold）特性和数据转换操作',
+            component: KotlinFlowDemo
+        },
+        {
+            id: 'kotlin-sharedflow',
+            title: 'Kotlin SharedFlow',
+            description: '演示 SharedFlow 的热流、多播和重放特性',
+            component: SharedFlowDemo
         },
     ];
 
