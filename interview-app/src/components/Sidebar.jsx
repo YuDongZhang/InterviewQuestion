@@ -8,6 +8,7 @@ const Sidebar = ({ activeCategory, onSelectCategory }) => {
         { id: 'kotlin', label: 'Kotlin 面试题' },
         { id: 'flutter', label: 'Flutter 面试题' },
         { id: 'animations', label: '动画演示' },
+        { id: 'learn', label: '学习知识' },
     ];
 
     return (
