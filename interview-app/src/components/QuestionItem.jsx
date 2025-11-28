@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 const QuestionItem = ({ data, onUpdate, onDelete, onInsert, isBatchMode, isSelected, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -143,7 +145,11 @@ const QuestionItem = ({ data, onUpdate, onDelete, onInsert, isBatchMode, isSelec
                       rows={15}
                     />
                   ) : (
-                    <pre>{data.detail}</pre>
+                    <div className="markdown-body">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                        {data.detail}
+                      </ReactMarkdown>
+                    </div>
                   )}
                 </div>
               )}
