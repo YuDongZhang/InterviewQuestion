@@ -40,6 +40,33 @@ const apiPlugin = () => ({
             res.end(JSON.stringify({ error: error.message }))
           }
         })
+      } else if (req.url === '/api/save-knowledge' && req.method === 'POST') {
+        console.log('[API] Handling save-knowledge request')
+        let body = ''
+
+        req.on('data', chunk => {
+          body += chunk.toString()
+        })
+
+        req.on('end', () => {
+          try {
+            const data = JSON.parse(body)
+            const filePath = path.join(__dirname, 'src', 'data', 'knowledge.json')
+            console.log('[API] Writing to:', filePath)
+
+            fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8')
+            console.log('[API] File saved successfully')
+
+            res.setHeader('Content-Type', 'application/json')
+            res.statusCode = 200
+            res.end(JSON.stringify({ success: true }))
+          } catch (error) {
+            console.error('[API] Error:', error)
+            res.setHeader('Content-Type', 'application/json')
+            res.statusCode = 500
+            res.end(JSON.stringify({ error: error.message }))
+          }
+        })
       } else {
         next()
       }
