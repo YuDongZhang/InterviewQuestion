@@ -3,8 +3,10 @@ import Sidebar from './components/Sidebar';
 import QuestionList from './components/QuestionList';
 import AnimationList from './components/AnimationList';
 import defaultQuestionsData from './data/questions.json';
+import knowledgeData from './data/knowledge.json';
 
 function App() {
+  const [mode, setMode] = useState('questions'); // 'questions' or 'knowledge'
   const [activeCategory, setActiveCategory] = useState('android');
   const [questionsData, setQuestionsData] = useState(defaultQuestionsData);
 
@@ -30,7 +32,8 @@ function App() {
     }
   };
 
-  const currentQuestions = questionsData[activeCategory] || [];
+  const currentData = mode === 'questions' ? questionsData : knowledgeData;
+  const currentQuestions = currentData[activeCategory] || [];
 
   const handleUpdateQuestion = (index, updatedQuestion) => {
     const newQuestions = [...currentQuestions];
@@ -40,7 +43,9 @@ function App() {
       [activeCategory]: newQuestions
     };
     setQuestionsData(newData);
-    saveQuestions(newData);
+    if (mode === 'questions') {
+      saveQuestions(newData);
+    }
   };
 
   const handleAddQuestion = () => {
@@ -54,7 +59,9 @@ function App() {
       [activeCategory]: [newQuestion, ...currentQuestions]
     };
     setQuestionsData(newData);
-    saveQuestions(newData);
+    if (mode === 'questions') {
+      saveQuestions(newData);
+    }
   };
 
   const handleDeleteQuestion = (index) => {
@@ -65,7 +72,9 @@ function App() {
         [activeCategory]: newQuestions
       };
       setQuestionsData(newData);
-      saveQuestions(newData);
+      if (mode === 'questions') {
+        saveQuestions(newData);
+      }
     }
   };
 
@@ -78,7 +87,9 @@ function App() {
         [activeCategory]: newQuestions
       };
       setQuestionsData(newData);
-      saveQuestions(newData);
+      if (mode === 'questions') {
+        saveQuestions(newData);
+      }
     }
   };
 
@@ -95,7 +106,9 @@ function App() {
       [activeCategory]: newQuestions
     };
     setQuestionsData(newData);
-    saveQuestions(newData);
+    if (mode === 'questions') {
+      saveQuestions(newData);
+    }
   };
 
   return (
@@ -103,6 +116,16 @@ function App() {
       <Sidebar
         activeCategory={activeCategory}
         onSelectCategory={setActiveCategory}
+        mode={mode}
+        onSwitchMode={(newMode) => {
+          setMode(newMode);
+          // Reset category when switching modes
+          if (newMode === 'knowledge') {
+            setActiveCategory('flutter');
+          } else {
+            setActiveCategory('android');
+          }
+        }}
       />
       <main className="main-content">
         {activeCategory === 'animations' ? (

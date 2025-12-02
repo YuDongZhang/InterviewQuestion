@@ -1,0 +1,38 @@
+{
+    "flutter": [
+        {
+            "question": "Flutter 基础概念",
+            "answer": "Flutter 是 Google 开源的 UI 工具包，帮助开发者通过一套代码库高效构建多平台精美应用，支持移动、Web、桌面和嵌入式平台。",
+            "detail": "Flutter 的核心优势在于其高性能渲染引擎（Skia/Impeller）和声明式 UI 编程模型。它使用 Dart 语言，支持热重载（Hot Reload），极大地提高了开发效率。"
+        },
+        {
+            "question": "Widget 是什么？",
+            "answer": "在 Flutter 中，一切皆为 Widget。Widget 是构建 UI 的基本单元，描述了视图的配置信息。",
+            "detail": "Widget 分为有状态（StatefulWidget）和无状态（StatelessWidget）两种。StatelessWidget 用于不可变的 UI，而 StatefulWidget 用于需要根据用户交互或其他因素改变状态的 UI。"
+        }
+    ],
+    "compose": [
+        {
+            "question": "Jetpack Compose 简介",
+            "answer": "Jetpack Compose 是 Android 的现代原生 UI 工具包，用于更简单、更快速地构建原生 UI。",
+            "detail": "Compose 使用 Kotlin 的声明式 API，让开发者可以用更少的代码描述 UI，并且拥有强大的工具支持和直观的 Kotlin API。"
+        },
+        {
+            "question": "Composable 函数",
+            "answer": "@Composable 注解标记的函数是 Compose 的核心构建块。",
+            "detail": "Composable 函数可以调用其他 Composable 函数来构建 UI 层次结构。它们描述了 UI 应该是什么样子的，而不是如何构建 UI。"
+        }
+    ],
+    "go": [
+        {
+            "question": "Go 语言特性",
+            "answer": "Go (Golang) 是 Google 开发的一种静态强类型、编译型、并发型，并具有垃圾回收功能的编程语言。",
+            "detail": "Go 语言语法简单，原生支持并发（Goroutines 和 Channels），编译速度快，非常适合构建高性能的网络服务和分布式系统。"
+        },
+        {
+            "question": "Goroutine",
+            "answer": "Goroutine 是 Go 语言中的轻量级线程，由 Go 运行时（Runtime）管理。",
+            "detail": "Goroutine 极其轻量，启动成本很低，一个 Go 程序可以轻松启动成千上万个 Goroutine。它们通过 Channel 进行通信，避免了复杂的锁机制。"
+        }
+    ]
+}
