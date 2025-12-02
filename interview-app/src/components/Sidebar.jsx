@@ -14,6 +14,7 @@ const Sidebar = ({ activeCategory, onSelectCategory, mode, onSwitchMode }) => {
         { id: 'flutter', label: 'Flutter' },
         { id: 'compose', label: 'Compose' },
         { id: 'go', label: 'Go' },
+        { id: 'bigModel', label: 'bigModel' },
     ];
 
     const categories = mode === 'questions' ? questionCategories : knowledgeCategories;

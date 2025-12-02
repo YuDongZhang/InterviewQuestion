@@ -54,5 +54,29 @@
       "answer": "Goroutine 是 Go 语言中的轻量级线程，由 Go 运行时（Runtime）管理。",
       "detail": "Goroutine 极其轻量，启动成本很低，一个 Go 程序可以轻松启动成千上万个 Goroutine。它们通过 Channel 进行通信，避免了复杂的锁机制。"
     }
+  ],
+  "bigModel": [
+    {
+      "question": "新题目",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "新题目",
+      "answer": "",
+      "detail": ""
+    },
+    {
+      "question": "新题目",
+      "answer": "",
+      "detail": ""
+    }
+  ],
+  "llm": [
+    {
+      "question": "新题目",
+      "answer": "",
+      "detail": ""
+    }
   ]
 }

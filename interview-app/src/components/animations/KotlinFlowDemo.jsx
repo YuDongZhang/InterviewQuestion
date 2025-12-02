@@ -54,9 +54,9 @@ const KotlinFlowDemo = () => {
         <div style={{ padding: '20px', fontFamily: 'Arial, sans-serif', maxWidth: '800px', margin: '0 auto' }}>
             <h2 style={{ textAlign: 'center', color: '#333' }}>Kotlin Flow (Cold Stream)</h2>
             <p style={{ textAlign: 'center', color: '#666', marginBottom: '30px' }}>
-                Flow 是 "冷" 的 (Cold)。只有调用 <code>collect()</code> 时，上游 (Upstream) 才会开始生产数据。
+                Flow 是 "冷" 的 (Cold)。只有调用 <code>{"collect()"}</code> 时，上游 (Upstream) 才会开始生产数据。
                 <br />
-        演示：Upstream (Emits) -> Operator (map * 2) -> Downstream (Collect)
+                演示：Upstream (Emits) -&gt; Operator (map * 2) -&gt; Downstream (Collect)
             </p>
 
             <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
