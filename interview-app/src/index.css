@@ -436,3 +436,62 @@ pre {
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   font-weight: 600;
 }
+
+/* Markdown Table Styles */
+.markdown-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: 0.5rem;
+  overflow: hidden;
+}
+
+.markdown-body table thead {
+  background-color: var(--code-bg);
+}
+
+.markdown-body table th {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  font-weight: 600;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+}
+
+.markdown-body table th:last-child {
+  border-right: none;
+}
+
+.markdown-body table td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.markdown-body table td:last-child {
+  border-right: none;
+}
+
+.markdown-body table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.markdown-body table tbody tr:hover {
+  background-color: rgba(14, 165, 233, 0.05);
+}
+
+/* Markdown code blocks in tables */
+.markdown-body table code {
+  background-color: rgba(14, 165, 233, 0.1);
+  padding: 0.2rem 0.4rem;
+  border-radius: 0.25rem;
+  font-size: 0.85rem;
+  font-family: 'Consolas', 'Monaco', monospace;
+  color: var(--accent-color);
+}
