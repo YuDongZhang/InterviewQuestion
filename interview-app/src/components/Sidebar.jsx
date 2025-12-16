@@ -15,6 +15,7 @@ const Sidebar = ({ activeCategory, onSelectCategory, mode, onSwitchMode }) => {
         { id: 'compose', label: 'Compose' },
         { id: 'go', label: 'Go' },
         { id: 'bigModel', label: 'bigModel' },
+        { id: 'java', label: 'Java' },
     ];
 
     const categories = mode === 'questions' ? questionCategories : knowledgeCategories;
