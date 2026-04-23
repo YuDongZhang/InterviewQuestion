@@ -7,6 +7,7 @@ const Sidebar = ({ activeCategory, onSelectCategory, mode, onSwitchMode }) => {
         { id: 'android', label: 'Android 面试题' },
         { id: 'kotlin', label: 'Kotlin 面试题' },
         { id: 'flutter', label: 'Flutter 面试题' },
+        { id: 'vehicle', label: '车载面试题' },
         { id: 'animations', label: '动画演示' },
     ];
 
