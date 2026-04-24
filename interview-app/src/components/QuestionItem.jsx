@@ -1,16 +1,50 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+
+const TOOLBAR_COLORS = [
+  '#000000', '#434343', '#666666', '#999999',
+  '#ef4444', '#f97316', '#eab308', '#22c55e',
+  '#0ea5e9', '#6366f1', '#a855f7', '#ec4899',
+];
+
+const textToHtml = (text) => {
+  if (!text) return '';
+  if (/<[a-z][\s\S]*>/i.test(text)) return text;
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/\n/g, '<br>');
+};
 
 const QuestionItem = ({ data, onUpdate, onDelete, onInsert, isBatchMode, isSelected, onSelect }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editData, setEditData] = useState(data);
   const [showDetail, setShowDetail] = useState(false);
+  const [showHeadings, setShowHeadings] = useState(false);
+  const [showColorPicker, setShowColorPicker] = useState(false);
+  const answerRef = useRef(null);
 
   useEffect(() => {
     setEditData(data);
   }, [data]);
+
+  useEffect(() => {
+    if (isEditing && answerRef.current) {
+      answerRef.current.innerHTML = textToHtml(editData.answer);
+    }
+  }, [isEditing]);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (!e.target.closest('.heading-dropdown-wrapper')) setShowHeadings(false);
+      if (!e.target.closest('.color-dropdown-wrapper')) setShowColorPicker(false);
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const toggleOpen = () => {
     if (!isEditing && !isBatchMode) setIsOpen(!isOpen);
@@ -29,14 +63,22 @@ const QuestionItem = ({ data, onUpdate, onDelete, onInsert, isBatchMode, isSelec
 
   const handleSaveClick = (e) => {
     e.stopPropagation();
-    onUpdate(editData);
+    const updatedData = { ...editData };
+    if (answerRef.current) {
+      updatedData.answer = answerRef.current.innerHTML;
+    }
+    onUpdate(updatedData);
     setIsEditing(false);
+    setShowHeadings(false);
+    setShowColorPicker(false);
   };
 
   const handleCancelClick = (e) => {
     e.stopPropagation();
     setEditData(data);
     setIsEditing(false);
+    setShowHeadings(false);
+    setShowColorPicker(false);
   };
 
   const handleDeleteClick = (e) => {
@@ -51,6 +93,11 @@ const QuestionItem = ({ data, onUpdate, onDelete, onInsert, isBatchMode, isSelec
 
   const handleChange = (field, value) => {
     setEditData({ ...editData, [field]: value });
+  };
+
+  const execFormat = (command, value = null) => {
+    answerRef.current?.focus();
+    document.execCommand(command, false, value);
   };
 
   return (
@@ -105,19 +152,110 @@ const QuestionItem = ({ data, onUpdate, onDelete, onInsert, isBatchMode, isSelec
       {isOpen && !isBatchMode && (
         <div className="question-content" onClick={(e) => e.stopPropagation()}>
           <div className="answer-section">
-            <h4>参考答案：</h4>
+            <div className="answer-header">
+              <h4>参考答案：</h4>
+              {isEditing && (
+                <div className="rich-toolbar">
+                  <div className="toolbar-item heading-dropdown-wrapper">
+                    <button
+                      className="toolbar-btn heading-btn"
+                      onClick={() => { setShowHeadings(!showHeadings); setShowColorPicker(false); }}
+                    >
+                      标题 <span className="dropdown-arrow">▾</span>
+                    </button>
+                    {showHeadings && (
+                      <div className="toolbar-dropdown heading-menu">
+                        {[1, 2, 3, 4, 5, 6].map(i => (
+                          <button
+                            key={i}
+                            className="heading-option"
+                            onMouseDown={(e) => {
+                              e.preventDefault();
+                              execFormat('formatBlock', `h${i}`);
+                              setShowHeadings(false);
+                            }}
+                          >
+                            <span style={{ fontSize: `${1.5 - i * 0.12}rem`, fontWeight: 600 }}>
+                              H{i} 标题{i}
+                            </span>
+                          </button>
+                        ))}
+                        <button
+                          className="heading-option"
+                          onMouseDown={(e) => {
+                            e.preventDefault();
+                            execFormat('formatBlock', 'p');
+                            setShowHeadings(false);
+                          }}
+                        >
+                          <span>正文</span>
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                  <div className="toolbar-divider" />
+                  <button
+                    className="toolbar-btn bold-btn"
+                    onMouseDown={(e) => { e.preventDefault(); execFormat('bold'); }}
+                    title="加粗"
+                  >
+                    <b>B</b>
+                  </button>
+                  <button
+                    className="toolbar-btn italic-btn"
+                    onMouseDown={(e) => { e.preventDefault(); execFormat('italic'); }}
+                    title="斜体"
+                  >
+                    <i>I</i>
+                  </button>
+                  <button
+                    className="toolbar-btn underline-btn"
+                    onMouseDown={(e) => { e.preventDefault(); execFormat('underline'); }}
+                    title="下划线"
+                  >
+                    <u>U</u>
+                  </button>
+                  <div className="toolbar-item color-dropdown-wrapper">
+                    <button
+                      className="toolbar-btn color-btn"
+                      onClick={() => { setShowColorPicker(!showColorPicker); setShowHeadings(false); }}
+                      title="字体颜色"
+                    >
+                      <span className="color-a">A</span>
+                    </button>
+                    {showColorPicker && (
+                      <div className="toolbar-dropdown color-palette">
+                        {TOOLBAR_COLORS.map(c => (
+                          <button
+                            key={c}
+                            className="color-swatch"
+                            style={{ backgroundColor: c }}
+                            onMouseDown={(e) => {
+                              e.preventDefault();
+                              execFormat('foreColor', c);
+                              setShowColorPicker(false);
+                            }}
+                          />
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
             {isEditing ? (
-              <textarea
-                className="edit-textarea"
-                value={editData.answer}
-                onChange={(e) => handleChange('answer', e.target.value)}
-                placeholder="输入参考答案..."
-                rows={15}
+              <div
+                key="editor"
+                ref={answerRef}
+                className="rich-editor"
+                contentEditable
+                suppressContentEditableWarning
+                onInput={() => handleChange('answer', answerRef.current.innerHTML)}
               />
             ) : (
-              <div className="answer-text">
+              <div key="display" className="answer-text">
                 {data.answer ? (
-                  <pre>{data.answer}</pre>
+                  <div className="answer-html" dangerouslySetInnerHTML={{ __html: textToHtml(data.answer) }} />
                 ) : (
                   <p className="no-answer">暂无答案</p>
                 )}

@@ -340,6 +340,204 @@ body {
   margin-top: 1rem;
 }
 
+/* Rich Text Toolbar */
+.answer-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.rich-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 2px 4px;
+}
+
+.toolbar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 30px;
+  padding: 0 8px;
+  border: none;
+  background: transparent;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--text-primary);
+  transition: all 0.15s;
+}
+
+.toolbar-btn:hover {
+  background-color: rgba(14, 165, 233, 0.15);
+  color: var(--accent-color);
+}
+
+.heading-btn {
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.dropdown-arrow {
+  font-size: 10px;
+  margin-left: 2px;
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 20px;
+  background-color: var(--border-color);
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+
+.toolbar-item {
+  position: relative;
+}
+
+.toolbar-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  z-index: 100;
+  overflow: hidden;
+}
+
+.heading-menu {
+  min-width: 160px;
+  padding: 4px;
+}
+
+.heading-option {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 4px;
+  transition: background-color 0.15s;
+}
+
+.heading-option:hover {
+  background-color: rgba(14, 165, 233, 0.1);
+}
+
+.bold-btn b {
+  font-size: 15px;
+}
+
+.italic-btn i {
+  font-family: Georgia, serif;
+  font-size: 15px;
+}
+
+.underline-btn u {
+  font-size: 14px;
+}
+
+.color-a {
+  font-weight: 700;
+  font-size: 15px;
+  background: linear-gradient(135deg, #ef4444, #f97316, #eab308, #22c55e, #0ea5e9, #6366f1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.color-palette {
+  right: 0;
+  left: auto;
+  padding: 8px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  min-width: 148px;
+}
+
+.color-swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.color-swatch:hover {
+  border-color: var(--accent-color);
+  transform: scale(1.2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+/* Rich Editor (contentEditable) */
+.rich-editor {
+  width: 100%;
+  min-height: 200px;
+  max-height: 500px;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 0.95rem;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: inherit;
+  line-height: 1.7;
+  outline: none;
+  overflow-y: auto;
+  margin-top: 0.5rem;
+}
+
+.rich-editor:focus {
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.1);
+}
+
+.rich-editor h1, .rich-editor h2, .rich-editor h3,
+.rich-editor h4, .rich-editor h5, .rich-editor h6 {
+  margin: 0.5rem 0;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.rich-editor h1 { font-size: 1.5rem; }
+.rich-editor h2 { font-size: 1.3rem; }
+.rich-editor h3 { font-size: 1.15rem; }
+.rich-editor h4 { font-size: 1.05rem; }
+.rich-editor h5 { font-size: 0.95rem; }
+.rich-editor h6 { font-size: 0.9rem; }
+
+/* HTML Answer Display */
+.answer-html {
+  line-height: 1.7;
+}
+
+.answer-html h1, .answer-html h2, .answer-html h3,
+.answer-html h4, .answer-html h5, .answer-html h6 {
+  margin: 0.8rem 0 0.4rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.answer-html h1 { font-size: 1.5rem; }
+.answer-html h2 { font-size: 1.3rem; }
+.answer-html h3 { font-size: 1.15rem; }
+.answer-html h4 { font-size: 1.05rem; }
+.answer-html h5 { font-size: 0.95rem; }
+.answer-html h6 { font-size: 0.9rem; }
+
 .answer-section h4,
 .detail-content h4 {
   color: var(--accent-color);
