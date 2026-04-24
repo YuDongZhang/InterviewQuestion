@@ -519,6 +519,65 @@ body {
 .rich-editor h5 { font-size: 0.95rem; }
 .rich-editor h6 { font-size: 0.9rem; }
 
+.rich-editor strong, .rich-editor b { font-weight: 700; }
+.rich-editor em, .rich-editor i { font-style: italic; }
+.rich-editor u { text-decoration: underline; }
+
+.rich-editor ul, .rich-editor ol {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.rich-editor li { margin-bottom: 0.25rem; }
+
+.rich-editor code {
+  background-color: rgba(14, 165, 233, 0.1);
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 0.9em;
+}
+
+.rich-editor pre {
+  background-color: var(--code-bg);
+  padding: 0.75rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+  border: 1px solid var(--border-color);
+}
+
+.rich-editor pre code {
+  background: transparent;
+  padding: 0;
+}
+
+.rich-editor blockquote {
+  border-left: 3px solid var(--accent-color);
+  margin: 0.5rem 0;
+  padding: 0.25rem 0.75rem;
+  color: var(--text-secondary);
+}
+
+.rich-editor table {
+  border-collapse: collapse;
+  margin: 0.5rem 0;
+  width: 100%;
+}
+
+.rich-editor th, .rich-editor td {
+  border: 1px solid var(--border-color);
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+}
+
+.rich-editor th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+}
+
+.rich-editor p { margin: 0.4rem 0; }
+
 /* HTML Answer Display */
 .answer-html {
   line-height: 1.7;
@@ -537,6 +596,62 @@ body {
 .answer-html h4 { font-size: 1.05rem; }
 .answer-html h5 { font-size: 0.95rem; }
 .answer-html h6 { font-size: 0.9rem; }
+
+.answer-html strong, .answer-html b { font-weight: 700; }
+.answer-html em, .answer-html i { font-style: italic; }
+.answer-html u { text-decoration: underline; }
+
+.answer-html ul, .answer-html ol {
+  margin: 0.5rem 0;
+  padding-left: 1.5rem;
+}
+
+.answer-html li { margin-bottom: 0.25rem; }
+
+.answer-html code {
+  background-color: rgba(14, 165, 233, 0.1);
+  padding: 0.1rem 0.3rem;
+  border-radius: 3px;
+  font-family: 'Consolas', 'Monaco', monospace;
+  font-size: 0.9em;
+}
+
+.answer-html pre {
+  background-color: var(--code-bg);
+  padding: 0.75rem;
+  border-radius: 6px;
+  overflow-x: auto;
+  margin: 0.5rem 0;
+  border: 1px solid var(--border-color);
+}
+
+.answer-html pre code { background: transparent; padding: 0; }
+
+.answer-html blockquote {
+  border-left: 3px solid var(--accent-color);
+  margin: 0.5rem 0;
+  padding: 0.25rem 0.75rem;
+  color: var(--text-secondary);
+}
+
+.answer-html table {
+  border-collapse: collapse;
+  margin: 0.5rem 0;
+  width: 100%;
+}
+
+.answer-html th, .answer-html td {
+  border: 1px solid var(--border-color);
+  padding: 0.4rem 0.6rem;
+  text-align: left;
+}
+
+.answer-html th {
+  background-color: var(--code-bg);
+  font-weight: 600;
+}
+
+.answer-html p { margin: 0.4rem 0; }
 
 .answer-section h4,
 .detail-content h4 {

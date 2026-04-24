@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import { marked } from 'marked';
 
 const TOOLBAR_COLORS = [
   '#000000', '#434343', '#666666', '#999999',
@@ -98,6 +99,24 @@ const QuestionItem = ({ data, onUpdate, onDelete, onInsert, isBatchMode, isSelec
   const execFormat = (command, value = null) => {
     answerRef.current?.focus();
     document.execCommand(command, false, value);
+  };
+
+  const looksLikeMarkdown = (text) => {
+    return /^#{1,6}\s|^\s*[-*+]\s|^\s*\d+\.\s|^\s*>|```|\*\*.+\*\*|^\|.+\|/m.test(text);
+  };
+
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const html = e.clipboardData.getData('text/html');
+    const text = e.clipboardData.getData('text/plain');
+    if (text && looksLikeMarkdown(text)) {
+      const converted = marked.parse(text, { breaks: true, gfm: true });
+      document.execCommand('insertHTML', false, converted);
+    } else if (html) {
+      document.execCommand('insertHTML', false, html);
+    } else if (text) {
+      document.execCommand('insertText', false, text);
+    }
   };
 
   return (
@@ -251,6 +270,7 @@ const QuestionItem = ({ data, onUpdate, onDelete, onInsert, isBatchMode, isSelec
                 contentEditable
                 suppressContentEditableWarning
                 onInput={() => handleChange('answer', answerRef.current.innerHTML)}
+                onPaste={handlePaste}
               />
             ) : (
               <div key="display" className="answer-text">
