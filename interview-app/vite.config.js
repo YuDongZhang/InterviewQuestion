@@ -79,8 +79,5 @@ export default defineConfig({
   plugins: [react(), apiPlugin()],
   server: {
     host: '0.0.0.0',
-    watch: {
-      ignored: ['**/src/data/*.json'],
-    },
   },
 })
